@@ -1,0 +1,588 @@
+[
+ {
+  "allowed_in_mentions": 1,
+  "api_key": "39992ace26a37a0",
+  "api_secret": "***************",
+  "banner_image": null,
+  "bio": null,
+  "birth_date": null,
+  "block_modules": [],
+  "bulk_actions": 1,
+  "bypass_restrict_ip_check_if_2fa_enabled": 0,
+  "code_editor_type": "vscode",
+  "dashboard": 1,
+  "default_app": null,
+  "default_workspace": null,
+  "defaults": [],
+  "desk_theme": "Light",
+  "docstatus": 0,
+  "doctype": "User",
+  "document_follow_frequency": "Daily",
+  "document_follow_notify": 0,
+  "email": "admin@example.com",
+  "email_signature": null,
+  "enabled": 1,
+  "first_name": "Administrator",
+  "follow_assigned_documents": 0,
+  "follow_commented_documents": 0,
+  "follow_created_documents": 0,
+  "follow_liked_documents": 0,
+  "follow_shared_documents": 0,
+  "form_sidebar": 1,
+  "full_name": "Administrator",
+  "gender": null,
+  "home_settings": null,
+  "interest": null,
+  "language": null,
+  "last_active": "2025-05-17 18:13:08.138929",
+  "last_ip": "127.0.0.1",
+  "last_known_versions": "{\"frappe\": {\"title\": \"Framework\", \"description\": \"Full stack web framework with Python, Javascript, MariaDB, Redis, Node\", \"branch\": \"develop\", \"branch_version\": \"15.x.x-develop (61b6e56)\", \"version\": \"16.0.0-dev\"}, \"elearning\": {\"title\": \"Elearning\", \"description\": \"A student-centric platform for mathematics learning and examination preparation, targeting Grade 9 students in Vietnam and Leaving Certificate students in Ireland\", \"branch\": \"main\", \"version\": \"0.0.1\"}}",
+  "last_login": "2025-04-23 23:06:08.364943",
+  "last_name": null,
+  "last_password_reset_date": null,
+  "last_reset_password_key_generated_on": null,
+  "list_sidebar": 1,
+  "location": null,
+  "login_after": 0,
+  "login_before": 0,
+  "logout_all_sessions": 1,
+  "middle_name": null,
+  "mobile_no": null,
+  "modified": "2025-04-26 17:35:37.648562",
+  "module_profile": null,
+  "mute_sounds": 0,
+  "name": "Administrator",
+  "new_password": "",
+  "notifications": 1,
+  "onboarding_status": "{}",
+  "phone": null,
+  "redirect_url": null,
+  "reset_password_key": null,
+  "restrict_ip": null,
+  "role_profile_name": null,
+  "role_profiles": [],
+  "roles": [
+   {
+    "role": "Administrator"
+   },
+   {
+    "role": "Translator"
+   },
+   {
+    "role": "Purchase Manager"
+   },
+   {
+    "role": "Maintenance User"
+   },
+   {
+    "role": "Purchase Master Manager"
+   },
+   {
+    "role": "Sales Manager"
+   },
+   {
+    "role": "Maintenance Manager"
+   },
+   {
+    "role": "Sales Master Manager"
+   },
+   {
+    "role": "Accounts User"
+   },
+   {
+    "role": "Accounts Manager"
+   },
+   {
+    "role": "Sales User"
+   },
+   {
+    "role": "Purchase User"
+   },
+   {
+    "role": "Newsletter Manager"
+   },
+   {
+    "role": "Knowledge Base Editor"
+   },
+   {
+    "role": "Knowledge Base Contributor"
+   },
+   {
+    "role": "Blogger"
+   },
+   {
+    "role": "Marketing Manager"
+   },
+   {
+    "role": "Inbox User"
+   },
+   {
+    "role": "Prepared Report User"
+   },
+   {
+    "role": "Script Manager"
+   },
+   {
+    "role": "Report Manager"
+   },
+   {
+    "role": "Workspace Manager"
+   },
+   {
+    "role": "Dashboard Manager"
+   },
+   {
+    "role": "Website Manager"
+   },
+   {
+    "role": "Desk User"
+   },
+   {
+    "role": "Guest"
+   },
+   {
+    "role": "All"
+   },
+   {
+    "role": "System Manager"
+   }
+  ],
+  "search_bar": 1,
+  "send_me_a_copy": 0,
+  "send_welcome_email": 1,
+  "simultaneous_sessions": 2,
+  "social_logins": [],
+  "thread_notify": 0,
+  "time_zone": "Asia/Ho_Chi_Minh",
+  "timeline": 1,
+  "unsubscribed": 0,
+  "user_emails": [],
+  "user_image": null,
+  "user_type": "System User",
+  "username": "administrator",
+  "view_switcher": 1
+ },
+ {
+  "allowed_in_mentions": 1,
+  "api_key": null,
+  "api_secret": null,
+  "banner_image": null,
+  "bio": null,
+  "birth_date": null,
+  "block_modules": [],
+  "bulk_actions": 1,
+  "bypass_restrict_ip_check_if_2fa_enabled": 0,
+  "code_editor_type": "vscode",
+  "dashboard": 1,
+  "default_app": null,
+  "default_workspace": null,
+  "defaults": [],
+  "desk_theme": "Light",
+  "docstatus": 0,
+  "doctype": "User",
+  "document_follow_frequency": "Daily",
+  "document_follow_notify": 0,
+  "email": "guest@example.com",
+  "email_signature": null,
+  "enabled": 1,
+  "first_name": "Guest",
+  "follow_assigned_documents": 0,
+  "follow_commented_documents": 0,
+  "follow_created_documents": 0,
+  "follow_liked_documents": 0,
+  "follow_shared_documents": 0,
+  "form_sidebar": 1,
+  "full_name": "Guest",
+  "gender": null,
+  "home_settings": null,
+  "interest": null,
+  "language": null,
+  "last_active": null,
+  "last_ip": null,
+  "last_known_versions": null,
+  "last_login": null,
+  "last_name": null,
+  "last_password_reset_date": null,
+  "last_reset_password_key_generated_on": null,
+  "list_sidebar": 1,
+  "location": null,
+  "login_after": 0,
+  "login_before": 0,
+  "logout_all_sessions": 1,
+  "middle_name": null,
+  "mobile_no": null,
+  "modified": "2025-04-24 00:36:51.180393",
+  "module_profile": null,
+  "mute_sounds": 0,
+  "name": "Guest",
+  "new_password": "",
+  "notifications": 1,
+  "onboarding_status": "{}",
+  "phone": null,
+  "redirect_url": null,
+  "reset_password_key": null,
+  "restrict_ip": null,
+  "role_profile_name": null,
+  "role_profiles": [],
+  "roles": [
+   {
+    "role": "Guest"
+   }
+  ],
+  "search_bar": 1,
+  "send_me_a_copy": 0,
+  "send_welcome_email": 1,
+  "simultaneous_sessions": 2,
+  "social_logins": [],
+  "thread_notify": 0,
+  "time_zone": "Asia/Ho_Chi_Minh",
+  "timeline": 1,
+  "unsubscribed": 0,
+  "user_emails": [],
+  "user_image": null,
+  "user_type": "Website User",
+  "username": "guest",
+  "view_switcher": 1
+ },
+ {
+  "allowed_in_mentions": 1,
+  "api_key": "bff07d3c8a27b17",
+  "api_secret": "***************",
+  "banner_image": null,
+  "bio": null,
+  "birth_date": null,
+  "block_modules": [],
+  "bulk_actions": 1,
+  "bypass_restrict_ip_check_if_2fa_enabled": 0,
+  "code_editor_type": "vscode",
+  "dashboard": 1,
+  "default_app": null,
+  "default_workspace": null,
+  "defaults": [],
+  "desk_theme": "Light",
+  "docstatus": 0,
+  "doctype": "User",
+  "document_follow_frequency": "Daily",
+  "document_follow_notify": 0,
+  "email": "nguyethang083@gmail.com",
+  "email_signature": null,
+  "enabled": 1,
+  "first_name": "Hang",
+  "follow_assigned_documents": 0,
+  "follow_commented_documents": 0,
+  "follow_created_documents": 0,
+  "follow_liked_documents": 0,
+  "follow_shared_documents": 0,
+  "form_sidebar": 1,
+  "full_name": "Hang Vu",
+  "gender": null,
+  "home_settings": null,
+  "interest": null,
+  "language": "en-US",
+  "last_active": "2025-06-02 18:40:35.644133",
+  "last_ip": "127.0.0.1",
+  "last_known_versions": "{\"frappe\": {\"title\": \"Framework\", \"description\": \"Full stack web framework with Python, Javascript, MariaDB, Redis, Node\", \"branch\": \"develop\", \"branch_version\": \"15.x.x-develop (a6c73df)\", \"version\": \"16.0.0-dev\"}, \"elearning\": {\"title\": \"Elearning\", \"description\": \"A student-centric platform for mathematics learning and examination preparation, targeting Grade 9 students in Vietnam and Leaving Certificate students in Ireland\", \"branch\": \"development\", \"version\": \"0.0.1\"}}",
+  "last_login": "2025-06-02 18:40:24.914866",
+  "last_name": "Vu",
+  "last_password_reset_date": "2025-05-17",
+  "last_reset_password_key_generated_on": "2025-05-28 15:58:50.621309",
+  "list_sidebar": 1,
+  "location": null,
+  "login_after": 0,
+  "login_before": 0,
+  "logout_all_sessions": 1,
+  "middle_name": null,
+  "mobile_no": null,
+  "modified": "2025-05-17 18:58:03.917362",
+  "module_profile": null,
+  "mute_sounds": 0,
+  "name": "nguyethang083@gmail.com",
+  "new_password": "",
+  "notifications": 1,
+  "onboarding_status": "{}",
+  "phone": null,
+  "redirect_url": "",
+  "reset_password_key": "4be55661c33248fb022293c07712a0e0c90769e7b2ad0ee6904501f79afd3669",
+  "restrict_ip": null,
+  "role_profile_name": null,
+  "role_profiles": [],
+  "roles": [
+   {
+    "role": "Sales Master Manager"
+   },
+   {
+    "role": "Maintenance Manager"
+   },
+   {
+    "role": "Translator"
+   },
+   {
+    "role": "Newsletter Manager"
+   },
+   {
+    "role": "Marketing Manager"
+   },
+   {
+    "role": "Purchase User"
+   },
+   {
+    "role": "Sales User"
+   },
+   {
+    "role": "System Manager"
+   },
+   {
+    "role": "Sales Manager"
+   },
+   {
+    "role": "Accounts User"
+   },
+   {
+    "role": "Report Manager"
+   },
+   {
+    "role": "Blogger"
+   },
+   {
+    "role": "Website Manager"
+   },
+   {
+    "role": "Maintenance User"
+   },
+   {
+    "role": "Knowledge Base Contributor"
+   },
+   {
+    "role": "Workspace Manager"
+   },
+   {
+    "role": "Inbox User"
+   },
+   {
+    "role": "Accounts Manager"
+   },
+   {
+    "role": "Purchase Manager"
+   },
+   {
+    "role": "Purchase Master Manager"
+   },
+   {
+    "role": "Script Manager"
+   },
+   {
+    "role": "Prepared Report User"
+   },
+   {
+    "role": "Dashboard Manager"
+   },
+   {
+    "role": "Knowledge Base Editor"
+   },
+   {
+    "role": "Student"
+   }
+  ],
+  "search_bar": 1,
+  "send_me_a_copy": 0,
+  "send_welcome_email": 1,
+  "simultaneous_sessions": 2,
+  "social_logins": [
+   {
+    "provider": "frappe",
+    "userid": "54e956f427afd0fc490f8d69fc843b39730a0d6",
+    "username": null
+   },
+   {
+    "provider": "google",
+    "userid": "101431402768543528424",
+    "username": null
+   }
+  ],
+  "thread_notify": 1,
+  "time_zone": "Asia/Ho_Chi_Minh",
+  "timeline": 1,
+  "unsubscribed": 0,
+  "user_emails": [],
+  "user_image": null,
+  "user_type": "System User",
+  "username": "hang",
+  "view_switcher": 1
+ },
+ {
+  "allowed_in_mentions": 1,
+  "api_key": null,
+  "api_secret": null,
+  "banner_image": null,
+  "bio": null,
+  "birth_date": null,
+  "block_modules": [],
+  "bulk_actions": 1,
+  "bypass_restrict_ip_check_if_2fa_enabled": 0,
+  "code_editor_type": "vscode",
+  "dashboard": 1,
+  "default_app": null,
+  "default_workspace": null,
+  "defaults": [],
+  "desk_theme": "Light",
+  "docstatus": 0,
+  "doctype": "User",
+  "document_follow_frequency": "Daily",
+  "document_follow_notify": 0,
+  "email": "22028079@vnu.edu.vn",
+  "email_signature": null,
+  "enabled": 1,
+  "first_name": "Hang",
+  "follow_assigned_documents": 0,
+  "follow_commented_documents": 0,
+  "follow_created_documents": 0,
+  "follow_liked_documents": 0,
+  "follow_shared_documents": 0,
+  "form_sidebar": 1,
+  "full_name": "Hang Vu",
+  "gender": null,
+  "home_settings": null,
+  "interest": null,
+  "language": "en-US",
+  "last_active": "2025-05-15 01:16:23.017674",
+  "last_ip": "127.0.0.1",
+  "last_known_versions": null,
+  "last_login": "2025-05-11 01:25:02.499363",
+  "last_name": "Vu",
+  "last_password_reset_date": null,
+  "last_reset_password_key_generated_on": null,
+  "list_sidebar": 1,
+  "location": null,
+  "login_after": 0,
+  "login_before": 0,
+  "logout_all_sessions": 1,
+  "middle_name": null,
+  "mobile_no": null,
+  "modified": "2025-04-26 17:50:18.310593",
+  "module_profile": null,
+  "mute_sounds": 0,
+  "name": "22028079@vnu.edu.vn",
+  "new_password": "",
+  "notifications": 1,
+  "onboarding_status": "{}",
+  "phone": null,
+  "redirect_url": null,
+  "reset_password_key": null,
+  "restrict_ip": null,
+  "role_profile_name": null,
+  "role_profiles": [],
+  "roles": [
+   {
+    "role": "System Manager"
+   }
+  ],
+  "search_bar": 1,
+  "send_me_a_copy": 0,
+  "send_welcome_email": 0,
+  "simultaneous_sessions": 2,
+  "social_logins": [
+   {
+    "provider": "frappe",
+    "userid": "04ddf489dc7577bd413c3e5e77a81557e29fbb8",
+    "username": null
+   }
+  ],
+  "thread_notify": 1,
+  "time_zone": "Asia/Ho_Chi_Minh",
+  "timeline": 1,
+  "unsubscribed": 0,
+  "user_emails": [],
+  "user_image": null,
+  "user_type": "System User",
+  "username": null,
+  "view_switcher": 1
+ },
+ {
+  "allowed_in_mentions": 0,
+  "api_key": null,
+  "api_secret": null,
+  "banner_image": null,
+  "bio": null,
+  "birth_date": null,
+  "block_modules": [],
+  "bulk_actions": 1,
+  "bypass_restrict_ip_check_if_2fa_enabled": 0,
+  "code_editor_type": "vscode",
+  "dashboard": 1,
+  "default_app": null,
+  "default_workspace": null,
+  "defaults": [],
+  "desk_theme": "Light",
+  "docstatus": 0,
+  "doctype": "User",
+  "document_follow_frequency": "Daily",
+  "document_follow_notify": 0,
+  "email": "gamauvang26@gmail.com",
+  "email_signature": null,
+  "enabled": 1,
+  "first_name": "Hoc",
+  "follow_assigned_documents": 0,
+  "follow_commented_documents": 0,
+  "follow_created_documents": 0,
+  "follow_liked_documents": 0,
+  "follow_shared_documents": 0,
+  "form_sidebar": 1,
+  "full_name": "Hoc Sinh",
+  "gender": null,
+  "home_settings": null,
+  "interest": null,
+  "language": "en-US",
+  "last_active": "2025-05-17 22:15:10.579133",
+  "last_ip": "127.0.0.1",
+  "last_known_versions": null,
+  "last_login": "2025-05-17 22:15:10.579108",
+  "last_name": "Sinh",
+  "last_password_reset_date": null,
+  "last_reset_password_key_generated_on": null,
+  "list_sidebar": 1,
+  "location": null,
+  "login_after": 0,
+  "login_before": 0,
+  "logout_all_sessions": 1,
+  "middle_name": null,
+  "mobile_no": null,
+  "modified": "2025-05-17 19:08:15.260807",
+  "module_profile": null,
+  "mute_sounds": 0,
+  "name": "gamauvang26@gmail.com",
+  "new_password": "",
+  "notifications": 1,
+  "onboarding_status": "{}",
+  "phone": null,
+  "redirect_url": null,
+  "reset_password_key": null,
+  "restrict_ip": null,
+  "role_profile_name": null,
+  "role_profiles": [],
+  "roles": [
+   {
+    "role": "Student"
+   }
+  ],
+  "search_bar": 1,
+  "send_me_a_copy": 0,
+  "send_welcome_email": 0,
+  "simultaneous_sessions": 2,
+  "social_logins": [
+   {
+    "provider": "frappe",
+    "userid": "c69d2d29a0a0a9ce60c91c9856a7ebf3c8927c8",
+    "username": null
+   }
+  ],
+  "thread_notify": 0,
+  "time_zone": "Asia/Ho_Chi_Minh",
+  "timeline": 1,
+  "unsubscribed": 0,
+  "user_emails": [],
+  "user_image": null,
+  "user_type": "Website User",
+  "username": "hoc",
+  "view_switcher": 1
+ }
+]

@@ -1,0 +1,3 @@
+# JWT support
+PyJWT==2.3.0
+

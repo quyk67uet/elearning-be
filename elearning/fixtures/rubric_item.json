@@ -1,0 +1,50 @@
+[
+ {
+  "description": "Viết lại hệ phương trình ban đầu và biến đổi phương trình (1) thành (3):\n\\[\n\\begin{cases}\nx + 3y = 9 \\quad (1) \\\\\n2x - 5y = -4 \\quad (2)\n\\end{cases}\n\\quad \\text{hay} \\quad\n\\begin{cases}\n2x + 6y = 18 \\quad (3) \\\\\n2x - 5y = -4 \\quad (4)\n\\end{cases}\n\\]",
+  "docstatus": 0,
+  "doctype": "Rubric Item",
+  "max_score": 0.15,
+  "modified": "2025-06-01 15:34:19.489460",
+  "name": "5upgc77jo3",
+  "parent": "5upuf9v9m7",
+  "parentfield": "rubric_items",
+  "parenttype": "Question",
+  "step_order": 1
+ },
+ {
+  "description": "Trừ (3) và (4) theo vế để tìm $y$:\n\\[\n\\begin{aligned}\n11y &= 22 \\\\\ny &= 2\n\\end{aligned}\n\\]",
+  "docstatus": 0,
+  "doctype": "Rubric Item",
+  "max_score": 0.25,
+  "modified": "2025-06-01 15:34:19.489460",
+  "name": "5up04apens",
+  "parent": "5upuf9v9m7",
+  "parentfield": "rubric_items",
+  "parenttype": "Question",
+  "step_order": 2
+ },
+ {
+  "description": "Thay \\( y = 2 \\) vào phương trình (1) để tìm \\( x \\):\n\\[\n\\begin{aligned}\nx + 3 \\times 2 &= 9 \\\\\nx &= 3\n\\end{aligned}\n\\]",
+  "docstatus": 0,
+  "doctype": "Rubric Item",
+  "max_score": 0.25,
+  "modified": "2025-06-01 15:34:19.489460",
+  "name": "5updc556b3",
+  "parent": "5upuf9v9m7",
+  "parentfield": "rubric_items",
+  "parenttype": "Question",
+  "step_order": 3
+ },
+ {
+  "description": "Kết luận: Hệ phương trình có nghiệm duy nhất \\( (x,\\, y) = (3,\\, 2) \\).",
+  "docstatus": 0,
+  "doctype": "Rubric Item",
+  "max_score": 0.1,
+  "modified": "2025-06-01 15:34:19.489460",
+  "name": "5upbqernun",
+  "parent": "5upuf9v9m7",
+  "parentfield": "rubric_items",
+  "parenttype": "Question",
+  "step_order": 4
+ }
+]

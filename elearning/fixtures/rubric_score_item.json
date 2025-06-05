@@ -1,0 +1,442 @@
+[
+ {
+  "attempt_answer_item_link": "5tjlmm2ggj",
+  "comment": "Học sinh viết lại hệ phương trình và nhân phương trình (1) với 2 để được phương trình (3) một cách chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 17:43:17.160814",
+  "name": "5tjg92rn30",
+  "points_awarded": 0.15,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "5tjlmm2ggj",
+  "comment": "Học sinh thực hiện phép trừ và tìm ra giá trị của y một cách chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 17:43:17.173303",
+  "name": "5tjo5a2miu",
+  "points_awarded": 0.25,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "5tjlmm2ggj",
+  "comment": "Học sinh thay giá trị y vào phương trình và tìm ra giá trị của x một cách chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 17:43:17.175440",
+  "name": "5tjrf87uci",
+  "points_awarded": 0.2,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "5tjlmm2ggj",
+  "comment": "Học sinh kết luận nghiệm của hệ phương trình một cách chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 17:43:17.177351",
+  "name": "5tjgu3uu25",
+  "points_awarded": 0.15,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "p5r1ca8a5a",
+  "comment": "Học sinh đã nhân đúng phương trình (1) với 2 để được phương trình (3).",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:16:09.115284",
+  "name": "p5r9ph769u",
+  "points_awarded": 0.15,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "p5r1ca8a5a",
+  "comment": "Học sinh đã thực hiện phép trừ đúng nhưng tính sai giá trị của y. Cụ thể, 11y = 22 nhưng học sinh lại suy ra y = 4.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:16:09.118099",
+  "name": "p5r9fbjbkq",
+  "points_awarded": 0.0,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "p5r1ca8a5a",
+  "comment": "Học sinh đã thay sai giá trị y = 4 vào phương trình và tính ra x = 8. Tuy nhiên, cách làm là đúng nên vẫn được một phần điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:16:09.119646",
+  "name": "p5rp825ght",
+  "points_awarded": 0.15,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "p5r1ca8a5a",
+  "comment": "Kết luận sai do tính toán sai ở các bước trên.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:16:09.121154",
+  "name": "p5r6udt0ma",
+  "points_awarded": 0.0,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "4h984rtqc3",
+  "comment": "Học sinh viết lại hệ phương trình và nhân phương trình (1) với 2 để được phương trình (3) chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:35:32.127940",
+  "name": "4h9n59i9p3",
+  "points_awarded": 0.15,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "4h984rtqc3",
+  "comment": "Học sinh thực hiện phép trừ và tìm ra giá trị của y chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:35:32.131954",
+  "name": "4h9k9737kf",
+  "points_awarded": 0.25,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "4h984rtqc3",
+  "comment": "Học sinh thay y = 2 vào và tìm ra x = 3. Tuy nhiên, học sinh thay y = 2 vào phương trình 2x - 5y = -4 thay vì phương trình (1) như hướng dẫn.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:35:32.134102",
+  "name": "4h9khqgke3",
+  "points_awarded": 0.15,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "4h984rtqc3",
+  "comment": "Học sinh kết luận nghiệm của hệ phương trình chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:35:32.136065",
+  "name": "4h9akisros",
+  "points_awarded": 0.15,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "cgobi6hek8",
+  "comment": "Học sinh không trình bày bước này.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:49:09.659759",
+  "name": "cgo0nvdb5i",
+  "points_awarded": 0.0,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "cgobi6hek8",
+  "comment": "Học sinh không trình bày bước này.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:49:09.663930",
+  "name": "cgopsab8et",
+  "points_awarded": 0.0,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "cgobi6hek8",
+  "comment": "Học sinh không trình bày bước này.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:49:09.666175",
+  "name": "cgo3i9gu0s",
+  "points_awarded": 0.0,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "cgobi6hek8",
+  "comment": "Học sinh đưa ra kết luận sai.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 18:49:09.668294",
+  "name": "cgobit3tuk",
+  "points_awarded": 0.0,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "0uueftlhsk",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:24:03.031114",
+  "name": "0uui6v0ob8",
+  "points_awarded": 0.0,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "0uueftlhsk",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:24:03.034737",
+  "name": "0uueqsm8qb",
+  "points_awarded": 0.0,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "0uueftlhsk",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:24:03.036702",
+  "name": "0uuesc9asa",
+  "points_awarded": 0.0,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "0uueftlhsk",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:24:03.038566",
+  "name": "0uu1uqui44",
+  "points_awarded": 0.0,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "2qvcgj3ruu",
+  "comment": "Học sinh đã nhân đúng phương trình (1) với 2 để được phương trình (3).",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:27:15.154415",
+  "name": "2qvkumtkse",
+  "points_awarded": 0.15,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "2qvcgj3ruu",
+  "comment": "Học sinh đã thực hiện phép trừ đúng nhưng tính sai ra y = 4.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:27:15.156434",
+  "name": "2qv6sqcfip",
+  "points_awarded": 0.0,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "2qvcgj3ruu",
+  "comment": "Học sinh thay y = 4 (sai) vào phương trình và tìm ra x = 8 (sai).",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:27:15.157748",
+  "name": "2qvc0nhjll",
+  "points_awarded": 0.15,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "2qvcgj3ruu",
+  "comment": "Học sinh kết luận sai nghiệm của hệ phương trình.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:27:15.158973",
+  "name": "2qvu57brrf",
+  "points_awarded": 0.0,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "5mtdl170kg",
+  "comment": "Học sinh viết lại hệ phương trình và nhân phương trình (1) với 2 để được phương trình (3) đúng.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:32:09.372120",
+  "name": "5mtf42bkrr",
+  "points_awarded": 0.25,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "5mtdl170kg",
+  "comment": "Học sinh thực hiện phép trừ và tìm ra giá trị y = 2 chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:32:09.374874",
+  "name": "5mtn6pgjgg",
+  "points_awarded": 0.25,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "5mtdl170kg",
+  "comment": "Học sinh thay y = 2 vào phương trình để tìm x. Tuy nhiên, học sinh thay y=2 vào phương trình (3) và vẫn tìm ra x=3. Mặc dù kết quả đúng, nhưng nên thay vào (1) như trong tiêu chí để đơn giản hơn.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:32:09.376587",
+  "name": "5mttie4k61",
+  "points_awarded": 0.3,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "5mtdl170kg",
+  "comment": "Học sinh kết luận nghiệm của hệ phương trình chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:32:09.378249",
+  "name": "5mt272qpsk",
+  "points_awarded": 0.15,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "a4beh8ruve",
+  "comment": "Học sinh viết lại hệ phương trình và nhân phương trình (1) với 2 để được phương trình (3) đúng.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:39:41.927641",
+  "name": "a4bphsartv",
+  "points_awarded": 0.25,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "a4beh8ruve",
+  "comment": "Học sinh thực hiện phép trừ và tìm ra giá trị của y chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:39:41.930046",
+  "name": "a4bg0mjgpv",
+  "points_awarded": 0.25,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "a4beh8ruve",
+  "comment": "Học sinh thay giá trị y vào và tìm ra giá trị x chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:39:41.931668",
+  "name": "a4bahi15fj",
+  "points_awarded": 0.35,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "a4beh8ruve",
+  "comment": "Học sinh kết luận nghiệm của hệ phương trình chính xác. Tuy nhiên, cách trình bày chưa được chặt chẽ, cần viết rõ ràng hơn.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-28 19:39:41.933158",
+  "name": "a4bqt2n277",
+  "points_awarded": 0.1,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "dk8n8e0iq0",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 03:57:11.274815",
+  "name": "dk8tekafd7",
+  "points_awarded": 0.0,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "dk8n8e0iq0",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 03:57:11.281520",
+  "name": "dk8a3km4jc",
+  "points_awarded": 0.0,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "dk8n8e0iq0",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 03:57:11.283173",
+  "name": "dk81ivg8tk",
+  "points_awarded": 0.0,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "dk8n8e0iq0",
+  "comment": "Không có bài làm để chấm điểm.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 03:57:11.284835",
+  "name": "dk8vrthe40",
+  "points_awarded": 0.0,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "smfec3fvhd",
+  "comment": "Học sinh đã viết lại hệ phương trình và biến đổi đúng.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 04:22:54.364517",
+  "name": "smfsvp3mcd",
+  "points_awarded": 0.25,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "smfec3fvhd",
+  "comment": "Học sinh đã trừ hai phương trình và tìm ra y = 2.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 04:22:54.368336",
+  "name": "smfbbsrfh8",
+  "points_awarded": 0.25,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "smfec3fvhd",
+  "comment": "Học sinh đã thay y = 2 vào phương trình và tìm ra x = 3.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 04:22:54.370379",
+  "name": "smfdq1st5q",
+  "points_awarded": 0.35,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "smfec3fvhd",
+  "comment": "Học sinh đã kết luận nghiệm của hệ phương trình. Tuy nhiên, cần trình bày rõ ràng hơn.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-05-29 04:22:54.372435",
+  "name": "smfu2pvmla",
+  "points_awarded": 0.1,
+  "rubric_item": "5upbqernun"
+ },
+ {
+  "attempt_answer_item_link": "b131kpbbin",
+  "comment": "Học sinh viết lại hệ phương trình và nhân phương trình (1) với 2 để được phương trình (3) đúng.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-06-01 15:37:10.783473",
+  "name": "b135igph57",
+  "points_awarded": 0.15,
+  "rubric_item": "5upgc77jo3"
+ },
+ {
+  "attempt_answer_item_link": "b131kpbbin",
+  "comment": "Học sinh thực hiện phép trừ và tìm ra giá trị y = 2 chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-06-01 15:37:10.793138",
+  "name": "b13q4c59ja",
+  "points_awarded": 0.25,
+  "rubric_item": "5up04apens"
+ },
+ {
+  "attempt_answer_item_link": "b131kpbbin",
+  "comment": "Học sinh thay y = 2 vào một phương trình để tìm x. Tuy nhiên, học sinh thay vào phương trình (3) thay vì (1) như trong rubric. Dù kết quả vẫn đúng, nhưng trừ điểm vì không theo đúng hướng dẫn của rubric.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-06-01 15:37:10.795561",
+  "name": "b13vn05lcc",
+  "points_awarded": 0.15,
+  "rubric_item": "5updc556b3"
+ },
+ {
+  "attempt_answer_item_link": "b131kpbbin",
+  "comment": "Học sinh kết luận nghiệm của hệ phương trình chính xác.",
+  "docstatus": 0,
+  "doctype": "Rubric Score Item",
+  "modified": "2025-06-01 15:37:10.797888",
+  "name": "b1312js1me",
+  "points_awarded": 0.1,
+  "rubric_item": "5upbqernun"
+ }
+]
