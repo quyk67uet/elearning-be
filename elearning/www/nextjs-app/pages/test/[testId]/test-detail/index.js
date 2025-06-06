@@ -130,6 +130,45 @@ export default function TestDetail() {
     () => setSavedStatus("unsaved") // Callback to set status to unsaved on file changes
   );
 
+  const handleFileAddAndMarkComplete = useCallback(
+    (questionId, filesOrObject) => {
+      // ✅ Đúng thứ tự: questionId, files
+      handleAddFileOrDrawing(questionId, filesOrObject);
+      answerHandlers.markQuestionCompleted(questionId, true);
+    },
+    [handleAddFileOrDrawing, answerHandlers]
+  );
+
+  const handleFileRemoveAndUpdateCompletion = useCallback(
+    (questionId, fileNameToRemove) => {
+      handleRemoveFileFromState(questionId, fileNameToRemove);
+
+      const remainingFiles = currentSessionQuestionFiles[questionId] || [];
+      const isRemovingTheLastFile =
+        remainingFiles.some((f) => f.originalFilename === fileNameToRemove) &&
+        remainingFiles.length === 1;
+
+      const hasOtherAnswers =
+        !!multipleChoiceAnswers[questionId] ||
+        !!shortAnswers[questionId]?.trim() ||
+        !!longAnswers[questionId]?.trim();
+
+      if (isRemovingTheLastFile && !hasOtherAnswers) {
+        answerHandlers.markQuestionCompleted(questionId, false);
+      }
+    },
+    [
+      handleRemoveFileFromState,
+      currentSessionQuestionFiles,
+      answerHandlers,
+      multipleChoiceAnswers,
+      shortAnswers,
+      longAnswers,
+    ]
+  );
+
+  const [showSummaryDialog, setShowSummaryDialog] = useState(false);
+
   useEffect(() => {
     if (initialSavedAnswers && questionsFromAttempt.length > 0) {
       initializeAnswers(initialSavedAnswers, questionsFromAttempt);
@@ -198,18 +237,6 @@ export default function TestDetail() {
     debouncedSaveProgress: async () => {}, // Placeholder
   });
 
-  const { isSaving, debouncedSaveProgress } = useAutoSave({
-    testAttemptId,
-    currentQuestionData,
-    questionsFromAttempt,
-    currentSessionQuestionFiles,
-    getAnswersForSubmission,
-    countdown,
-    savedStatus,
-    setSavedStatus,
-    isSubmitting,
-  });
-
   useEffect(() => {
     if (currentTestQuestionDetailId) {
       handleQuestionChange(currentTestQuestionDetailId); // From useTestAnswers
@@ -217,7 +244,10 @@ export default function TestDetail() {
   }, [currentTestQuestionDetailId, handleQuestionChange]);
 
   const blockDrawingAreaInteraction =
-    isSubmitting || showSubmitConfirmDialog || showErrorDialog;
+    isSubmitting ||
+    showSubmitConfirmDialog ||
+    showErrorDialog ||
+    showSummaryDialog;
 
   const handleMarkCompleteToggle = useCallback(() => {
     if (!currentTestQuestionDetailId) return;
@@ -382,8 +412,8 @@ export default function TestDetail() {
                 currentFiles={
                   currentSessionQuestionFiles[currentTestQuestionDetailId] || []
                 }
-                onAddFiles={handleAddFileOrDrawing}
-                onRemoveFile={handleRemoveFileFromState}
+                onAddFiles={handleFileAddAndMarkComplete}
+                onRemoveFile={handleFileRemoveAndUpdateCompletion}
                 processingFiles={processingFiles}
                 blockDrawingAreaInteraction={blockDrawingAreaInteraction}
               />
@@ -401,6 +431,8 @@ export default function TestDetail() {
               completedQuestions={completedQuestions}
               markedForReview={markedForReview}
               questions={questionsFromAttempt}
+              showSummaryDialog={showSummaryDialog} // prop mới
+              onSummaryDialogOpenChange={setShowSummaryDialog} // prop mới
             />
           </div>
         </div>

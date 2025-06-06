@@ -26,7 +26,7 @@ export default function TestResultHeader({
               variant="default"
               className={`${baseBadgeClass} bg-green-100 text-green-800 border border-green-300`}
             >
-              <CheckCircle className="h-3 w-3 mr-1" /> Passed
+              <CheckCircle className="h-3 w-3 mr-1" /> Đạt
             </Badge>
           );
         } else if (passed === false) {
@@ -35,7 +35,7 @@ export default function TestResultHeader({
               variant="destructive"
               className={`${baseBadgeClass} bg-red-100 text-red-800 border border-red-300`}
             >
-              <XCircle className="h-3 w-3 mr-1" /> Failed
+              <XCircle className="h-3 w-3 mr-1" /> Trượt
             </Badge>
           );
         } else {
@@ -55,7 +55,7 @@ export default function TestResultHeader({
               variant="default"
               className={`${baseBadgeClass} bg-green-100 text-green-800 border border-green-300`}
             >
-              <CheckCircle className="h-3 w-3 mr-1" /> Passed (Timed Out)
+              <CheckCircle className="h-3 w-3 mr-1" /> Đạt (Timed Out)
             </Badge>
           );
         } else if (passed === false) {
@@ -64,7 +64,7 @@ export default function TestResultHeader({
               variant="destructive"
               className={`${baseBadgeClass} bg-red-100 text-red-800 border border-red-300`}
             >
-              <XCircle className="h-3 w-3 mr-1" /> Failed (Timed Out)
+              <XCircle className="h-3 w-3 mr-1" /> Trượt (Timed Out)
             </Badge>
           );
         } else {
@@ -83,7 +83,7 @@ export default function TestResultHeader({
             variant="outline"
             className={`${baseBadgeClass} text-blue-600 border-blue-300`}
           >
-            <Hourglass className="h-3 w-3 mr-1 animate-spin" /> In Progress
+            <Hourglass className="h-3 w-3 mr-1 animate-spin" /> Đang thực hiện
           </Badge>
         );
       default:

@@ -98,11 +98,24 @@ export default NextAuth({
           );
 
           if (response.data && response.data.message) {
-            // Store information in the user object
-            user.name = profile.name;
-            user.email = profile.email;
-            user.image = profile.picture;
+            // Lưu JWT token từ phản hồi của Frappe vào đối tượng user
+            user.accessToken = response.data.message.access_token;
+            
+            // Lưu thông tin người dùng từ phản hồi API
+            const userInfo = response.data.message.user_info;
+            user.name = userInfo.name || profile.name;
+            user.email = userInfo.email || profile.email;
+            user.image = userInfo.image || profile.picture;
             user.provider = "google";
+            user.roles = userInfo.roles || [];
+            user.id = userInfo.id || profile.email;
+            
+            console.log("Social login successful, user info:", {
+              name: user.name,
+              email: user.email,
+              accessToken: user.accessToken ? "Present" : "Missing"
+            });
+            
             return true;
           }
 

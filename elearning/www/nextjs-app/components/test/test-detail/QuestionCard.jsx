@@ -24,41 +24,34 @@ import { DrawingArea } from "./DrawingArea";
 import { decodeHtmlEntities, formatFileSize } from "@/utils/test-utils";
 
 export function QuestionCard({
-  questionData, // Direct question object, replaces currentQuestionIndex & questions
-  currentDisplayNumber, // e.g., 1, 2, 3...
-  testQuestionId, // This is questionData.test_question_detail_id
-
-  markedForReview = {}, // Object: { [testQuestionId]: true/false }
-  completedQuestions = {}, // Object: { [testQuestionId]: true/false }
-
-  onToggleMarkForReview, // (testQuestionId) => void
-  onMarkComplete, // (testQuestionId, isComplete) => void
-
-  // Answer state and handlers (handlers are pre-bound with testQuestionId from TestDetail)
-  multipleChoiceAnswer, // string (selected option text or value)
-  onMultipleChoiceChange, // (value, optionObject) => void
-  shortAnswer, // string
-  onShortAnswerChange, // (value) => void
-  longAnswer, // string
-  onLongAnswerChange, // (value) => void
-
-  canvasState, // string (dataURL)
-  setCanvasStates, // (newState) => void (pre-bound with testQuestionId)
-
-  currentFiles = [], // Array of { base64Data, originalFilename, mimeType, size, lastModifiedTimeToken }
-  onAddFiles, // (testQuestionDetailId, filesOrCapturedInfo) => Promise<void>
-  onRemoveFile, // (testQuestionDetailId, originalFilenameToRemove) => void
-  processingFiles = {}, // Object: { [processingKey]: true/error }
-  blockDrawingAreaInteraction, // <-- Accept the new prop
+  questionData,
+  currentDisplayNumber,
+  testQuestionId,
+  markedForReview = {},
+  completedQuestions = {},
+  onToggleMarkForReview,
+  onMarkComplete, // Corrected signature: () => void
+  multipleChoiceAnswer,
+  onMultipleChoiceChange,
+  shortAnswer,
+  onShortAnswerChange,
+  longAnswer,
+  onLongAnswerChange,
+  canvasState,
+  setCanvasStates,
+  currentFiles = [],
+  onAddFiles, // Corrected signature: (files, testQuestionId) => void
+  onRemoveFile,
+  processingFiles = {},
+  blockDrawingAreaInteraction,
 }) {
   const [showHint, setShowHint] = useState(false);
 
-  // testQuestionId is the definitive ID for the current question context
   const isMarkedForReview = !!markedForReview[testQuestionId];
   const isMarkedComplete = !!completedQuestions[testQuestionId];
 
   useEffect(() => {
-    setShowHint(false); // Reset hint visibility when question changes
+    setShowHint(false);
   }, [testQuestionId]);
 
   const questionContentForDisplay = useMemo(() => {
@@ -70,36 +63,28 @@ export function QuestionCard({
       Array.isArray(questionData.options)
     ) {
       formattedOptions = questionData.options.map((opt, index) => ({
-        // Ensure unique and stable IDs for options
         id: opt.id || `${testQuestionId}-option-${opt.option_text || index}`,
-        text: opt.text || opt.option_text || `Option ${index + 1}`, // Ensure text is present
+        text: opt.text || opt.option_text || `Option ${index + 1}`,
         label: opt.label || String.fromCharCode(65 + index),
       }));
     }
 
     return {
-      id: testQuestionId, // Use the definitive testQuestionId
-      type: questionData.question_type || "multiple_choice", // Default or fallback
+      id: testQuestionId,
+      type: questionData.question_type || "multiple_choice",
       question: questionData.content || "Question content is missing.",
       imageUrl: questionData.image_url || questionData.image,
       options: formattedOptions,
       hint: questionData.hint || "",
-      explanation: questionData.explanation || "", // Not currently used in render, but good to have
+      explanation: questionData.explanation || "",
       points: questionData.point_value || questionData.marks || 0,
-      // You might want to make color dynamic based on type or other factors
       color: "bg-indigo-500",
     };
   }, [questionData, testQuestionId]);
 
   const handleToggleReview = () => {
     if (testQuestionId && onToggleMarkForReview) {
-      onToggleMarkForReview(testQuestionId); // onToggleMarkForReview expects the ID
-    }
-  };
-
-  const handleToggleComplete = () => {
-    if (testQuestionId && onMarkComplete) {
-      onMarkComplete();
+      onToggleMarkForReview(testQuestionId);
     }
   };
 
@@ -110,29 +95,21 @@ export function QuestionCard({
       onAddFiles &&
       testQuestionId
     ) {
+      // ✅ Đúng thứ tự: id trước, files sau
       onAddFiles(testQuestionId, event.target.files);
-      event.target.value = null; // Reset file input
+      event.target.value = null;
     }
   };
 
   const handleDrawingCapturedAsFile = useCallback(
     (capturedFileInfo) => {
       if (onAddFiles && testQuestionId && capturedFileInfo) {
+        // ✅ Đúng thứ tự: id trước, file object sau
         onAddFiles(testQuestionId, capturedFileInfo);
-      } else {
-        console.warn(
-          "onAddFiles or testQuestionId or capturedFileInfo is missing in QuestionCard callback"
-        );
       }
     },
     [onAddFiles, testQuestionId]
   );
-
-  console.log(
-    "Question Completed are:",
-    Object.keys(completedQuestions).length
-  );
-
   if (!questionData || !questionContentForDisplay) {
     return (
       <Card className="p-6 mb-6 border shadow-sm bg-white text-center">
@@ -145,10 +122,9 @@ export function QuestionCard({
     questionContentForDisplay.type === "Essay" ||
     questionContentForDisplay.type === "long_answer";
 
-  console.log("Question content for display:", questionContentForDisplay);
   return (
     <Card
-      key={testQuestionId} // Use testQuestionId for key
+      key={testQuestionId}
       className="p-4 sm:p-6 mb-6 relative overflow-hidden border shadow-sm bg-white"
     >
       <div
@@ -156,9 +132,6 @@ export function QuestionCard({
         aria-hidden="true"
       ></div>
       <div className="pl-4 sm:pl-6">
-        {" "}
-        {/* Ensure content is not under the color bar */}
-        {/* Header Section */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3 pb-4 border-b">
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="text-lg sm:text-xl font-semibold whitespace-nowrap">
@@ -209,10 +182,11 @@ export function QuestionCard({
             <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
+                  {/* Simplified this call for cleaner code */}
                   <Button
                     variant={isMarkedComplete ? "default" : "outline"}
                     size="sm"
-                    onClick={handleToggleComplete} // Corrected: Does not need arguments
+                    onClick={onMarkComplete}
                     className={`transition-colors ${
                       isMarkedComplete
                         ? "bg-green-500 hover:bg-green-600 text-white border-green-600"
@@ -260,22 +234,12 @@ export function QuestionCard({
             )}
           </div>
         </div>
-        {/* Question Content */}
+
         <div className="text-base md:text-lg mb-6 leading-relaxed">
           {parseLatex(questionContentForDisplay.question)}
+          {}
         </div>
-        {/* Hint Display */}
-        {showHint && questionContentForDisplay.hint && (
-          <div className="bg-blue-50 p-4 rounded-md border border-blue-200 mb-6 animate-in slide-in-from-top-2 duration-300">
-            <div className="flex items-center gap-2 mb-2">
-              <Lightbulb className="h-5 w-5 text-blue-600" />
-              <h3 className="font-medium text-blue-800">Gợi ý</h3>
-            </div>
-            <div className="text-sm text-blue-700 prose prose-sm max-w-none">
-              {parseLatex(questionContentForDisplay.hint)}
-            </div>
-          </div>
-        )}
+
         {/* Image Display */}
         {questionContentForDisplay.imageUrl && (
           <div className="mb-6 flex justify-center">
@@ -289,27 +253,18 @@ export function QuestionCard({
             />
           </div>
         )}
-        {/* Answer Input Section */}
+
         <AnswerInput
-          questionContent={questionContentForDisplay} // Contains type, options etc.
+          questionContent={questionContentForDisplay}
           multipleChoiceAnswer={multipleChoiceAnswer}
           shortAnswer={shortAnswer}
           longAnswer={longAnswer}
-          // Handlers are now called without testQuestionId as they are pre-bound
-          onMultipleChoiceChange={(optionValue, optionObject) => {
-            // optionValue is option.text, optionObject is the full {id, text, label}
-            if (onMultipleChoiceChange)
-              onMultipleChoiceChange(optionValue, optionObject);
-          }}
-          onShortAnswerChange={(value) => {
-            if (onShortAnswerChange) onShortAnswerChange(value);
-          }}
-          onLongAnswerChange={(value) => {
-            if (onLongAnswerChange) onLongAnswerChange(value);
-          }}
-          parseLatex={parseLatex} // Pass the LaTeX parser
+          onMultipleChoiceChange={onMultipleChoiceChange}
+          onShortAnswerChange={onShortAnswerChange}
+          onLongAnswerChange={onLongAnswerChange}
+          parseLatex={parseLatex}
         />
-        {/* File Upload and Drawing Area for Essay/Long Answer */}
+
         {showFileUploadSection && (
           <>
             <div className="mt-6 p-4 border border-dashed rounded-md bg-slate-50">
@@ -332,7 +287,7 @@ export function QuestionCard({
                   </span>
                 </Button>
                 <input
-                  id={`file-upload-${testQuestionId}`} // Unique ID for label association
+                  id={`file-upload-${testQuestionId}`}
                   type="file"
                   multiple
                   accept="image/png, image/jpeg, image/gif"
@@ -348,7 +303,6 @@ export function QuestionCard({
                   </h4>
                   <ul className="space-y-2">
                     {currentFiles.map((fileInfo, index) => {
-                      // Construct the processing key as done in useQuestionFiles
                       const processingKey = `${testQuestionId}-${
                         fileInfo.originalFilename
                       }-${
@@ -358,7 +312,7 @@ export function QuestionCard({
 
                       return (
                         <li
-                          key={processingKey} // Use a reliably unique key
+                          key={processingKey}
                           className="flex items-center justify-between p-2 bg-white border rounded-md text-sm"
                         >
                           <div className="flex items-center gap-2 overflow-hidden">
@@ -380,7 +334,6 @@ export function QuestionCard({
                             {processingState === true && (
                               <Loader2 className="h-4 w-4 animate-spin text-blue-500 ml-2" />
                             )}
-                            {/* You might want to show an error icon if processingState is an error object */}
                           </div>
                           <Button
                             variant="ghost"
@@ -412,18 +365,11 @@ export function QuestionCard({
             </div>
 
             <DrawingArea
-              currentQuestionId={testQuestionId} // Pass ID for context if needed inside DrawingArea
+              currentQuestionId={testQuestionId}
               canvasState={canvasState}
-              setCanvasState={(newState) => {
-                // setCanvasStates is pre-bound with ID
-                if (setCanvasStates) setCanvasStates(newState);
-              }}
-              // markAsCompleted is not directly available as a prop.
-              // If drawing something should mark it complete, TestDetail needs to handle that,
-              // or this prop needs to be explicitly passed.
-              // For now, assuming onMarkComplete handles completion.
+              setCanvasState={setCanvasStates}
               onCaptureDrawingAsFile={handleDrawingCapturedAsFile}
-              isBlocked={blockDrawingAreaInteraction} // <-- Pass the prop down
+              isBlocked={blockDrawingAreaInteraction}
             />
           </>
         )}

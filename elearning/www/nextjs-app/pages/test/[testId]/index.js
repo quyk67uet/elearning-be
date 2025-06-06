@@ -22,7 +22,7 @@ export default function TestDescription() {
     useTestDetails(id);
 
   const totalScore = test?.question_count ?? "N/A";
-
+  console.log("ATtempt status:", attemptStatus);
   const navigateToAttemptResult = (attemptId) => {
     if (!test || !test.title || !attemptId) return;
     const slugifiedTitle = slugify(test.title, {

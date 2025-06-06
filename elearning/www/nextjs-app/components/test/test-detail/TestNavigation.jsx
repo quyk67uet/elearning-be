@@ -45,6 +45,8 @@ export function TestNavigation({
   // Styling
   buttonColor, // Optional override color class,
   testId,
+  showSummaryDialog,
+  onSummaryDialogOpenChange,
 }) {
   // Set default button color if not provided
   const defaultColor = "bg-indigo-600";
@@ -104,34 +106,36 @@ export function TestNavigation({
         aria-label="Previous Question"
       >
         <ChevronLeft className="h-4 w-4" />
-        Previous
+        Trước
       </Button>
 
       {/* Middle Buttons: Summary & Save */}
       <div className="flex items-center gap-2 w-full sm:w-auto justify-center order-3 sm:order-2 mt-2 sm:mt-0">
-        {" "}
-        {/* Center buttons on mobile */}
-        {/* Summary Modal */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              variant="outline"
-              className="flex items-center gap-1 flex-1 sm:flex-none"
-              disabled={submitting}
-            >
-              <BarChart2 className="h-4 w-4" />
-              Summary
-            </Button>
-          </DialogTrigger>
+        {/* ✅ BƯỚC 2: Chuyển Dialog thành dạng "controlled" */}
+        <Dialog
+          open={showSummaryDialog}
+          onOpenChange={onSummaryDialogOpenChange}
+        >
+          {/* Thay DialogTrigger bằng một Button thông thường */}
+          <Button
+            variant="outline"
+            className="flex items-center gap-1 flex-1 sm:flex-none"
+            disabled={submitting}
+            onClick={() => onSummaryDialogOpenChange(true)} // Mở dialog thông qua state của cha
+          >
+            <BarChart2 className="h-4 w-4" />
+            Tổng kết
+          </Button>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
-              <DialogTitle>Test Summary</DialogTitle>
+              <DialogTitle>Tổng kết bài làm</DialogTitle>
               <DialogDescription>
-                Review your progress. Click a question number to navigate.
+                Xem lại tiến độ làm bài. Nhấn vào số câu hỏi để chuyển đến câu
+                đó.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 mt-4 max-h-[60vh] overflow-y-auto py-2">
-              {/* Grid for question numbers */}
+              {/* Lưới số câu hỏi */}
               <div className="pl-2 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-2">
                 {Array.from({ length: totalQuestions }, (_, i) => {
                   const questionNumber = i + 1;
@@ -174,13 +178,13 @@ export function TestNavigation({
                         {isCompleted && !isMarked && (
                           <span
                             className="absolute -top-1 -right-1 block w-2.5 h-2.5 bg-green-500 rounded-full border border-white"
-                            title="Completed"
+                            title="Hoàn thành"
                           ></span>
                         )}
                         {!isCompleted && !isMarked && (
                           <span
                             className="absolute -top-1 -right-1 block w-2.5 h-2.5 bg-gray-300 rounded-full border border-white"
-                            title="Not attempted"
+                            title="Chưa làm"
                           ></span>
                         )}
                       </button>
@@ -188,15 +192,14 @@ export function TestNavigation({
                   );
                 })}
               </div>
-
               {/* Summary Stats */}
               <div className="bg-gray-100 p-4 rounded-md border mt-4">
                 {" "}
                 {/* Added margin-top */}
                 <div className="flex justify-between mb-2 text-sm">
-                  <span>Completion:</span>
+                  <span>Hoàn thành:</span>
                   <span className="font-medium">
-                    {completedCount} of {totalQuestions} questions
+                    {completedCount} trên {totalQuestions} câu
                   </span>
                 </div>
                 <Progress
@@ -206,7 +209,7 @@ export function TestNavigation({
                       : 0
                   }
                   className="h-2 mb-2"
-                  aria-label={`${completedCount} of ${totalQuestions} questions completed`}
+                  aria-label={`${completedCount} trên ${totalQuestions} câu hỏi đã hoàn thành`}
                 />
                 <div className="flex flex-wrap justify-between text-xs gap-x-4 gap-y-1 text-gray-600">
                   <span>Đánh dấu: {markedForReviewCount}</span>
@@ -218,7 +221,7 @@ export function TestNavigation({
             <div className="flex justify-end gap-2 mt-6">
               <DialogClose asChild>
                 <Button variant="outline" onClick={handleReturnToTest}>
-                  Return to Test
+                  Quay về Test
                 </Button>
               </DialogClose>
               <Button
@@ -226,7 +229,7 @@ export function TestNavigation({
                 onClick={onSubmitTest}
                 disabled={submitting}
               >
-                {submitting ? "Submitting..." : "Submit Test"}
+                {submitting ? "Đang nộp..." : "Nộp bài"}
               </Button>
             </div>
           </DialogContent>
@@ -242,7 +245,7 @@ export function TestNavigation({
           disabled={submitting}
           aria-label="Next Question"
         >
-          Next
+          Tiếp
           <ChevronRight className="h-4 w-4" />
         </Button>
       ) : (
@@ -251,9 +254,9 @@ export function TestNavigation({
           className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto order-2 sm:order-3" // Responsive width and order
           onClick={onSubmitTest}
           disabled={submitting}
-          aria-label="Submit Test"
+          aria-label="Nộp bài"
         >
-          {submitting ? "Submitting..." : "Submit Test"}
+          {submitting ? "Đang nộp..." : "Nộp bài"}
         </Button>
       )}
     </div>

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { handleNextAuthLogin } from "../middleware/auth";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { Toaster } from "sonner";
 
 function AuthWrapper({ children }) {
   const { data: session } = useSession();
@@ -25,7 +26,7 @@ export default function MyApp({
   const router = useRouter();
 
   // Define routes that should use the DashboardLayout
-  const dashboardRoutes = ["/test", "/report", "/analysis"];
+  const dashboardRoutes = ["/test", "/report", "/analysis", "/learn"];
 
   // Check if the current route starts with any of the dashboard routes
   const isDashboardRoute = dashboardRoutes.some((route) =>
@@ -46,6 +47,7 @@ export default function MyApp({
         ) : (
           <Component {...pageProps} />
         )}
+        <Toaster richColors position="top-center" /> {/* Thêm dòng này */}
       </AuthWrapper>
     </SessionProvider>
   );

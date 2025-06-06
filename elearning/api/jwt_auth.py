@@ -4,6 +4,7 @@ import datetime
 from frappe import _
 from frappe.auth import LoginManager
 from frappe.utils import cint
+from pymysql.err import OperationalError
 
 # JWT Configuration - Read from site_config.json
 def get_jwt_settings():
@@ -23,31 +24,6 @@ def get_jwt_settings():
 def jwt_login():
     """
     Custom JWT login endpoint that accepts email and password and returns a JWT token.
-    
-    Request:
-    {
-        "email": "user@example.com",
-        "password": "yourpassword"
-    }
-    
-    Response (Success):
-    {
-        "success": true,
-        "message": "Authentication successful",
-        "access_token": "eyJhbGc...",
-        "user": {
-            "name": "User Name",
-            "email": "user@example.com",
-            "roles": ["Student", "System Manager", ...],
-            "id": "user@example.com"
-        }
-    }
-    
-    Response (Error):
-    {
-        "success": false,
-        "message": "Invalid email or password" or other error message
-    }
     """
     try:
         # Get request data
@@ -138,15 +114,6 @@ def jwt_login():
 def verify_jwt_token(token):
     """
     Verify the JWT token and return the payload if valid
-    
-    Args:
-        token (str): JWT token string
-        
-    Returns:
-        dict: Decoded payload if valid, None if invalid
-        
-    Raises:
-        Exception: If token is invalid, expired, etc.
     """
     try:
         jwt_settings = get_jwt_settings()
@@ -204,13 +171,27 @@ def jwt_auth_middleware():
     
     # Set session user from token
     user_id = payload.get("user_id")
+    
+    # --- KHỐI CODE ĐÃ ĐƯỢC SỬA ĐỔI ---
     if user_id:
-        # Set Frappe's session user to the user from the token
-        frappe.local.login_manager.login_as(user_id)
-        frappe.log_error(f"Frappe session successfully set for user: {frappe.session.user} via JWT", "JWT Auth Success")
+        try:
+            # Set Frappe's session user to the user from the token
+            frappe.local.login_manager.login_as(user_id)
+            frappe.log_error(f"Frappe session successfully set for user: {frappe.session.user} via JWT", "JWT Auth Success")
+        except OperationalError as e:
+            # Bắt chính xác lỗi race condition (1020)
+            if e.args[0] == 1020:
+                # Bỏ qua lỗi này một cách an toàn vì một request khác đã cập nhật session thành công
+                # Đảm bảo request hiện tại vẫn tiếp tục với session hợp lệ
+                frappe.local.login_manager.resume = True
+                pass
+            else:
+                # Nếu là lỗi database khác, hãy báo lỗi như bình thường
+                raise
     else:
         frappe.response.status_code = 401
         frappe.local.response["message"] = _("Invalid token payload")
+    # --- KẾT THÚC KHỐI CODE SỬA ĐỔI ---
 
 @frappe.whitelist()
 def get_user_info():
@@ -237,4 +218,4 @@ def get_user_info():
             "roles": user_roles,
             "id": user_doc.name
         }
-    } 
+    }

@@ -36,6 +36,13 @@ export default function PerformanceSection({ userData }) {
     error: topicsError,
   } = useTopics();
 
+  // Sử dụng mảng đối tượng để hiển thị label tiếng Việt, value tiếng Anh
+  const testModes = [
+    { label: "Luyện tập", value: "Practice Test" },
+    { label: "Thi thử", value: "Full Exam Simulation" },
+    { label: "Chuyên đề", value: "Topics" },
+  ];
+
   // Set the mode from URL parameter if available
   useEffect(() => {
     const mode = getModeFromUrl(modeFromUrl);
@@ -78,13 +85,13 @@ export default function PerformanceSection({ userData }) {
     router.push("/test");
   };
 
-  const handleModeSelect = (mode) => {
-    setSelectedMode(mode);
+  const handleModeSelect = (modeValue) => {
+    setSelectedMode(modeValue);
     setShowModeDropdown(false);
     setShowTopicTests(false);
     setSelectedTopicId(null);
     setSelectedTopicName(null);
-    router.push(getUrlForMode(mode));
+    router.push(getUrlForMode(modeValue));
   };
 
   const handleTopicSelect = (topic) => {
@@ -93,8 +100,6 @@ export default function PerformanceSection({ userData }) {
     setSelectedTopicName(topic.topic_name);
     setShowTopicTests(true);
   };
-
-  const testModes = ["Practice Test", "Full Exam Simulation", "Topics"];
 
   return (
     <div className="mb-8">
@@ -146,7 +151,8 @@ export default function PerformanceSection({ userData }) {
             className="w-full sm:w-[180px] justify-between"
             onClick={() => setShowModeDropdown(!showModeDropdown)}
           >
-            {selectedMode || "Chọn chế độ"}
+            {testModes.find((m) => m.value === selectedMode)?.label ||
+              "Chọn chế độ"}
             <ChevronDown className="h-4 w-4 opacity-50" />
           </Button>
 
@@ -156,9 +162,9 @@ export default function PerformanceSection({ userData }) {
                 <div
                   key={index}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
-                  onClick={() => handleModeSelect(mode)}
+                  onClick={() => handleModeSelect(mode.value)}
                 >
-                  {mode}
+                  {mode.label}
                 </div>
               ))}
             </div>
@@ -198,7 +204,9 @@ export default function PerformanceSection({ userData }) {
           />
         ) : (
           <div className="text-center p-8 text-gray-500 dark:text-gray-400 border rounded-lg bg-gray-50 dark:bg-gray-800/50 mt-6">
-            {selectedMode} đang được cập nhật.
+            {testModes.find((m) => m.value === selectedMode)?.label ||
+              selectedMode}{" "}
+            đang được cập nhật.
           </div>
         )}
       </div>

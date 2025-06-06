@@ -1,4 +1,3 @@
-// elearning/src/components/test/test-detail/DrawingArea.jsx
 "use client";
 
 import React, { useState, useCallback } from "react";
@@ -10,45 +9,54 @@ import {
   Camera,
   Eraser as ClearIcon,
   Info,
+  AlertTriangle, // Import AlertTriangle for error toasts
 } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
+
+const toastStyles = {
+  base: {
+    background: "#FFFFFF",
+    color: "#020817", // slate-950
+    border: "1px solid #E2E8F0", // slate-200
+    borderRadius: "8px",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+    padding: "16px",
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+  },
+  success: {
+    background: "#F0FFF4", // A very light green
+    borderColor: "#9AE6B4", // green-300
+    color: "#276749", // green-800
+  },
+  warning: {
+    background: "#FFFBEB", // A very light yellow
+    borderColor: "#F6E05E", // yellow-400
+    color: "#975A16", // yellow-800
+  },
+  error: {
+    background: "#FFF5F5", // A very light red
+    borderColor: "#FEB2B2", // red-300
+    color: "#9B2C2C", // red-800
+  },
+};
 
 export function DrawingArea({
   currentQuestionId,
   onCaptureDrawingAsFile,
-  isBlocked = true,
+  isBlocked = false,
 }) {
   const [editor, setEditor] = useState(null);
 
-  const handleTldrawMount = useCallback(
-    (editorInstance) => {
-      setEditor(editorInstance);
-      // console.log(
-      //   `tldraw editor mounted for Q${currentQuestionId}. Persistence key: ${
-      //     currentQuestionId ? `tldraw_ans_q_${currentQuestionId}` : "none"
-      //   }`
-      // );
-
-      // ** IMPORTANT FOR PERSISTENCE **
-      // The following lines would clear any drawing loaded by persistenceKey.
-      // Comment them out or remove them to allow persisted drawings to show on load.
-      /*
-      if (editorInstance) {
-        const allShapesOnPage = editorInstance.getCurrentPageShapes();
-        if (allShapesOnPage.length > 0) {
-          const shapeIdsToDelete = allShapesOnPage.map((shape) => shape.id);
-          editorInstance.deleteShapes(shapeIdsToDelete);
-        }
-      }
-      */
-    },
-    [] // Removed currentQuestionId as dependency, onMount should ideally run once per Tldraw instance.
-    // tldraw will handle persistence based on the persistenceKey prop changing.
-  );
+  const handleTldrawMount = useCallback((editorInstance) => {
+    setEditor(editorInstance);
+  }, []);
 
   const handleCaptureCanvasAsFile = useCallback(async () => {
     if (isBlocked || !editor) {
@@ -64,7 +72,11 @@ export function DrawingArea({
       const shapeIdsToExport = allShapesOnPage.map((shape) => shape.id);
 
       if (shapeIdsToExport.length === 0) {
-        alert("Bảng vẽ đang trống. Vui lòng vẽ gì đó trước khi ghi lại.");
+        toast.warning("Bảng vẽ đang trống", {
+          description: "Vui lòng vẽ gì đó trước khi ghi lại.",
+          style: { ...toastStyles.base, ...toastStyles.warning },
+          icon: <Info className="h-5 w-5" />,
+        });
         return;
       }
 
@@ -82,9 +94,11 @@ export function DrawingArea({
           "Failed to export image: editor.toImage did not return a blob.",
           exportResult
         );
-        alert(
-          "Không thể tạo ảnh từ bản vẽ (API không trả về dữ liệu blob). Vui lòng thử lại."
-        );
+        toast.error("Không thể tạo ảnh", {
+          description: "API không trả về dữ liệu blob. Vui lòng thử lại.",
+          style: { ...toastStyles.base, ...toastStyles.error },
+          icon: <AlertTriangle className="h-5 w-5" />,
+        });
         return;
       }
 
@@ -102,9 +116,11 @@ export function DrawingArea({
             "Failed to generate valid PNG data URL from blob.",
             dataUrl
           );
-          alert(
-            "Không thể tạo ảnh từ bản vẽ (dữ liệu trống hoặc lỗi khi đọc blob)."
-          );
+          toast.error("Không thể tạo ảnh", {
+            description: "Dữ liệu trống hoặc lỗi khi đọc blob.",
+            style: { ...toastStyles.base, ...toastStyles.error },
+            icon: <AlertTriangle className="h-5 w-5" />,
+          });
           return;
         }
         const base64Data = dataUrl.split(",")[1];
@@ -116,13 +132,19 @@ export function DrawingArea({
           size: sizeInBytes,
         };
         onCaptureDrawingAsFile(capturedFileInfo);
-        alert(
-          "Bản vẽ đã được ghi lại và sẽ được đính kèm vào bài làm của bạn."
-        );
+        toast.success("Đã ghi lại bản vẽ", {
+          description: "Hình ảnh sẽ được đính kèm vào bài làm của bạn.",
+          style: { ...toastStyles.base, ...toastStyles.success },
+          icon: <Camera className="h-5 w-5" />,
+        });
       };
       reader.onerror = (error) => {
         console.error("FileReader error converting blob to data URL:", error);
-        alert("Lỗi khi xử lý dữ liệu ảnh. Vui lòng thử lại.");
+        toast.error("Lỗi xử lý ảnh", {
+          description: "Xảy ra lỗi khi đọc dữ liệu ảnh. Vui lòng thử lại.",
+          style: { ...toastStyles.base, ...toastStyles.error },
+          icon: <AlertTriangle className="h-5 w-5" />,
+        });
       };
       reader.readAsDataURL(imageBlob);
     } catch (error) {
@@ -130,18 +152,11 @@ export function DrawingArea({
         "Lỗi trong quá trình chụp bản vẽ tldraw (sử dụng editor.toImage):",
         error
       );
-      if (
-        error instanceof TypeError &&
-        error.message.toLowerCase().includes("is not a function")
-      ) {
-        alert(
-          "Tính năng xuất ảnh này không được hỗ trợ hoặc editor chưa sẵn sàng. Vui lòng thử làm mới trang."
-        );
-      } else {
-        alert(
-          "Đã xảy ra lỗi không mong muốn trong quá trình xử lý bản vẽ. Vui lòng thử lại sau."
-        );
-      }
+      toast.error("Đã xảy ra lỗi không mong muốn", {
+        description: "Quá trình xử lý bản vẽ thất bại. Vui lòng thử lại sau.",
+        style: { ...toastStyles.base, ...toastStyles.error },
+        icon: <AlertTriangle className="h-5 w-5" />,
+      });
     }
   }, [editor, currentQuestionId, onCaptureDrawingAsFile, isBlocked]);
 
@@ -151,8 +166,6 @@ export function DrawingArea({
     if (allShapesOnPage.length > 0) {
       editor.deleteShapes(allShapesOnPage.map((shape) => shape.id));
     }
-    // After clearing, tldraw should automatically persist this new empty state
-    // to localStorage if persistenceKey is active.
   };
 
   return (
@@ -222,8 +235,8 @@ export function DrawingArea({
 
       <div
         className={`
-          border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 
-          relative overflow-hidden 
+          border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900
+          relative overflow-hidden
           h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]
           transition-opacity duration-200 ease-in-out
           ${isBlocked ? "opacity-50 pointer-events-none" : "opacity-100"}
@@ -239,32 +252,19 @@ export function DrawingArea({
         <div
           style={{
             position: "absolute",
-
-            bottom: "6px", // Example position, adjust as needed
-
-            right: "6px", // Example position, adjust as needed
-
-            width: "100px", // Example width, tldraw's watermark is approx this
-
-            height: "40px", // Example height
-
+            bottom: "6px",
+            right: "6px",
+            width: "100px",
+            height: "40px",
             padding: "2px 4px",
-
             backgroundColor: "rgba(249, 250, 251, 255)",
-
             fontSize: "9px",
-
             color: "rgba(249, 250, 251, 255)",
-
-            zIndex: 800, // Very high z-index to be on top of most tldraw UI elements
-
-            pointerEvents: "none", // Prevents this div from capturing mouse events
-
+            zIndex: 800,
+            pointerEvents: "none",
             borderRadius: "3px",
-
             textAlign: "center",
-
-            lineHeight: "normal", // Adjust if you set a fixed height
+            lineHeight: "normal",
           }}
         ></div>
       </div>

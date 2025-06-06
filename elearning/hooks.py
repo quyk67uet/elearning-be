@@ -249,6 +249,20 @@ fixtures = [
 # 	"Task": "elearning.task.get_dashboard_data"
 # }
 
+# CORS Headers Configuration
+# -------------------------
+cors_headers = [
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Methods", 
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Credentials"
+]
+
+# Response Hooks
+# -------------------------
+# Xử lý trước khi trả về response
+after_request = ["elearning.api.api.handle_cors"]
+
 # exempt linked doctypes from being automatically cancelled
 #
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]

@@ -49,7 +49,7 @@ const DashboardNavbar = ({
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-1000 w-full">
+    <nav className="bg-white shadow-sm sticky top-0 z-40 w-full">
       <div className="flex items-center h-16 w-full">
         {/* Toggle Button - Always visible and positioned correctly */}
         <div
@@ -72,7 +72,7 @@ const DashboardNavbar = ({
           <div className="relative">
             <input
               type="text"
-              placeholder="Search topics, lessons..."
+              placeholder="Tìm kiếm chuyên đề, bài học..."
               className="w-full py-1.5 sm:py-2 px-3 sm:px-4 pl-8 sm:pl-10 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
             />
             <div className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 text-gray-400">

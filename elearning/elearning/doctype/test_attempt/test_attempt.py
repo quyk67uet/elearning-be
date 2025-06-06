@@ -623,6 +623,7 @@ def get_attempt_result_details(attempt_id):
         base_question_id = tqd_item.question
         try:
             question_doc = frappe.get_doc("Question", base_question_id)
+            print(f"DEBUG_QUESTION_DOC for Q_ID {base_question_id}: {question_doc.as_dict()}")
             marks_in_question = getattr(question_doc, 'marks', 1)
         except frappe.DoesNotExistError:
             marks_in_question = 0
@@ -675,10 +676,7 @@ def get_attempt_result_details(attempt_id):
                         "url": img_row.image,
                         "name": img_row.image.split('/')[-1]
                     })
-            
-            # ---- THAY ĐỔI LOGIC LẤY RUBRIC SCORE ----
-            # Kiểm tra xem câu hỏi này có phải là Essay không để lấy điểm rubric
-            # (dựa vào question_type đã lấy từ question_doc ở trên)
+         
             if question_db_details.get('question_type') == "Essay":
                 try:
                     has_essay_question = True
@@ -713,7 +711,6 @@ def get_attempt_result_details(attempt_id):
                     logger.info(f"Fetched {len(ai_rubric_scores_list)} standalone Rubric Score Items for AAI {student_answer_doc.name}")
                 except Exception as e_fetch_rsi:
                     logger.error(f"Error fetching standalone Rubric Score Items for AAI {student_answer_doc.name}: {e_fetch_rsi}", exc_info=True)
-            # ---- KẾT THÚC THAY ĐỔI LOGIC LẤY RUBRIC SCORE ----
         else:
             logger.warning(f"No student answer document found in map for Test Q Item '{test_question_item_id}'.")
 

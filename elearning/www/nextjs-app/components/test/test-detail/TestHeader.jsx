@@ -58,7 +58,7 @@ export function TestHeader({ title, timeLeft, formatTime }) {
               htmlFor="auto-save"
               className="text-sm text-gray-500 cursor-not-allowed"
             >
-              Auto-save
+              Lưu tự động
             </label>
           </div>
         </div>

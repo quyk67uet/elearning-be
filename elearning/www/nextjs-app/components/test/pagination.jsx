@@ -25,7 +25,7 @@ export function Pagination({
           disabled={currentPage === 1}
         >
           <ChevronLeft className="h-4 w-4" />
-          <span className="sr-only">Previous page</span>
+          <span className="sr-only">Trang trước</span>
         </Button>
 
         <div className="flex items-center space-x-1">

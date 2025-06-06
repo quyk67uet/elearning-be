@@ -13,7 +13,7 @@ export function AttemptStatus({ status, passed }) {
             variant="default"
             className="bg-green-100 text-green-700 border-green-300 hover:bg-green-100"
           >
-            <CheckCircle className="h-3.5 w-3.5 mr-1" /> Passed
+            <CheckCircle className="h-3.5 w-3.5 mr-1" /> Đạt
           </Badge>
         );
       } else if (passed === 0) {
@@ -23,7 +23,7 @@ export function AttemptStatus({ status, passed }) {
             {/* Added justify-center */}
             <XCircle className="h-4 w-4 mr-1" />{" "}
             {/* Use h-4 w-4 from old code */}
-            Failed
+            Trượt
           </div>
         );
       } else {
@@ -37,11 +37,11 @@ export function AttemptStatus({ status, passed }) {
           </Badge>
         );
       }
-    case "in_progress":
-      // Keep Badge for In Progress
+    case "in progress":
       return (
         <Badge variant="outline" className="text-blue-600 border-blue-300">
-          <Hourglass className="h-3.5 w-3.5 mr-1 animate-spin" /> In Progress
+          <Hourglass className="h-3.5 w-3.5 mr-1 animate-spin" /> Đang làm
+          <map name=""></map>
         </Badge>
       );
     case "timed_out":
@@ -51,7 +51,7 @@ export function AttemptStatus({ status, passed }) {
             variant="default"
             className="bg-green-100 text-green-700 border-green-300 hover:bg-green-100"
           >
-            <CheckCircle className="h-3.5 w-3.5 mr-1" /> Passed (Timed Out)
+            <CheckCircle className="h-3.5 w-3.5 mr-1" /> Đạt (Timed Out)
           </Badge>
         );
       } else if (passed === false) {
@@ -61,7 +61,7 @@ export function AttemptStatus({ status, passed }) {
             {/* Added justify-center */}
             <XCircle className="h-4 w-4 mr-1" />{" "}
             {/* Use h-4 w-4 from old code */}
-            Failed (Timed Out) {/* Add specific text */}
+            Trượt (Timed Out) {/* Add specific text */}
           </div>
         );
       } else {
@@ -70,7 +70,7 @@ export function AttemptStatus({ status, passed }) {
             variant="secondary"
             className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100"
           >
-            <Clock className="h-3.5 w-3.5 mr-1" /> Timed Out
+            <Clock className="h-3.5 w-3.5 mr-1" /> Hết giờ
           </Badge>
         );
       }

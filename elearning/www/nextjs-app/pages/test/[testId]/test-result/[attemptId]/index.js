@@ -1,4 +1,3 @@
-// pages/test/[testId]/test-result/[attemptId].js (or pages/test/[slug]/test-result.js)
 "use client";
 
 import { useState, useEffect } from "react";
@@ -108,7 +107,7 @@ export default function TestResultsPage() {
   const handleExport = () => {
     if (!testResult) return;
 
-    // Extract data safely using optional chaining and nullish coalescing
+    // --- Phần trích xuất thông tin chung vẫn ổn ---
     const attemptScore = testResult.attempt?.score ?? null;
     const totalPossible = testResult.test?.total_possible_score ?? null;
     const scorePercent =
@@ -116,40 +115,58 @@ export default function TestResultsPage() {
         ? ((attemptScore / totalPossible) * 100).toFixed(1) + "%"
         : "N/A";
     const correctCount =
-      testResult.questions_answers?.filter((q) => q.is_correct === true)
-        .length ?? "N/A";
+      testResult.questions_answers?.filter((q) => q.is_correct === 1).length ??
+      "N/A";
     const totalQ = testResult.questions_answers?.length ?? "N/A";
     const time = formatDurationFromSeconds(
       testResult.attempt?.time_taken_seconds
     );
     const dateCompleted = testResult.attempt?.end_time
-      ? new Date(testResult.attempt.end_time).toLocaleDateString() // Use appropriate locale if needed
+      ? new Date(testResult.attempt.end_time).toLocaleDateString()
       : "N/A";
     const testTitle = testResult.test?.title ?? "N/A";
 
-    // Basic CSV content
     let csvContent = `data:text/csv;charset=utf-8,Test: "${testTitle.replace(
       /"/g,
       '""'
     )}"\nScore: ${scorePercent}\nCorrect Answers: ${correctCount}/${totalQ}\nTime Taken: ${time}\nDate: ${dateCompleted}\n\nQuestion No.,Question Content,Your Answer,Correct Answer,Status,Points Awarded,Points Possible,Time Spent (s)\n`;
 
-    // Add question details
     testResult.questions_answers?.forEach((q, index) => {
       const qNum = index + 1;
-      const qContent = `"${(q.q_content || "").replace(/"/g, '""')}"`; // Handle quotes
-      const userAnswer = `"${(q.user_answer !== null ? q.user_answer : "")
-        .toString()
-        .replace(/"/g, '""')}"`;
-      const correctAnswer = `"${(q.correct_answer || "").replace(/"/g, '""')}"`;
+      const qContent = `"${(q.q_content || "").replace(/"/g, '""')}"`;
+
+      const userAnswerParts = [];
+      if (q.user_answer_text) {
+        userAnswerParts.push(q.user_answer_text);
+      }
+      if (q.user_submitted_images && q.user_submitted_images.length > 0) {
+        const imageNames = q.user_submitted_images
+          .map((img) => img.filename || "image")
+          .join(", ");
+        userAnswerParts.push(`[Images: ${imageNames}]`);
+      }
+      const userAnswerText = userAnswerParts.join("; ").replace(/"/g, '""');
+      const userAnswer = `"${userAnswerText}"`;
+
+      const correctAnswerText = (q.answer_key_display || [])
+        .map(
+          (step) => `- ${step.description.replace(/\\\[|\\\]|\\(|\\)|\$/g, "")}`
+        ) // Loại bỏ các ký tự LaTeX
+        .join("\\n") // Dùng \\n để tạo dòng mới trong ô CSV
+        .replace(/"/g, '""');
+      const correctAnswer = `"${correctAnswerText}"`;
+
       const status =
-        q.is_correct === true
+        q.is_correct === 1
           ? "Correct"
-          : q.is_correct === false
+          : q.is_correct === 0
           ? "Incorrect"
           : "Not Graded";
-      const pointsAwarded = q.points_awarded ?? "N/A";
-      const pointsPossible = q.point_value ?? "N/A";
+
+      const pointsAwarded = q.points_awarded_final ?? "N/A";
+      const pointsPossible = q.point_value_in_test ?? q.q_marks ?? "N/A";
       const timeSpent = q.time_spent_seconds ?? "N/A";
+
       csvContent += `${qNum},${qContent},${userAnswer},${correctAnswer},${status},${pointsAwarded},${pointsPossible},${timeSpent}\n`;
     });
 

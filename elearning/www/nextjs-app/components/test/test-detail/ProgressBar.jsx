@@ -18,10 +18,11 @@ export function ProgressBarDisplay({
       <div className="flex flex-col sm:flex-row justify-between mt-1.5 text-xs sm:text-sm text-gray-600 gap-1">
         {" "}
         <span>
-          Question {currentQuestionDisplayNumber} of {totalQuestions}
+          Câu hỏi {currentQuestionDisplayNumber} trên {totalQuestions} câu
         </span>
         <span>
-          {completedCount} of {totalQuestions} completed ({progressPercentage}%)
+          {completedCount} trên {totalQuestions} câu đã hoàn thành (
+          {progressPercentage}%)
         </span>
       </div>
     </div>

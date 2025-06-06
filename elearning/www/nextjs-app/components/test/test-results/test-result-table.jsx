@@ -569,7 +569,6 @@ export default function TestResultsTable({ questions = [], searchQuery = "" }) {
                           colSpan={4}
                           className="p-4 space-y-4 text-xs border-t border-gray-200"
                         >
-                          {/* ... (Phần Your Answer và Correct Answer giữ nguyên như lần sửa trước, đã có renderAnswer() xử lý) ... */}
                           <div>
                             <h4 className="font-semibold mb-1.5 text-gray-600">
                               Câu trả lời của bạn:
@@ -613,7 +612,7 @@ export default function TestResultsTable({ questions = [], searchQuery = "" }) {
                           {question.q_type === "Essay" && (
                             <div>
                               <h4 className="font-semibold mb-1.5 text-gray-600">
-                                Thang điểm gốc):
+                                Thang điểm gốc:
                               </h4>
                               <div className="p-3 rounded border border-blue-200 bg-blue-50 text-gray-800">
                                 {renderAnswer(

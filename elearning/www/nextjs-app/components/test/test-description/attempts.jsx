@@ -76,7 +76,10 @@ export default function PreviousAttempts({
                           <Calendar className="h-4 w-4 mr-2 text-gray-500 shrink-0" />
                           <span>
                             {attempt.start_time
-                              ? format(new Date(attempt.start_time), "PP p")
+                              ? format(
+                                  new Date(attempt.start_time),
+                                  "dd/MM/yy hh:mm a"
+                                )
                               : "N/A"}
                           </span>
                         </div>
@@ -98,7 +101,7 @@ export default function PreviousAttempts({
                         ) : attempt.status === "In Progress" ? (
                           // Fallback for 'in_progress'
                           <span className="text-gray-500 italic text-xs">
-                            Pending
+                            Chưa có
                           </span>
                         ) : (
                           // Fallback for N/A (score is null, totalPossibleScore missing, etc.)

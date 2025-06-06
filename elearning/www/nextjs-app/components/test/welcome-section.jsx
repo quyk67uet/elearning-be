@@ -12,18 +12,18 @@ export default function WelcomeSection() {
       <div className="flex flex-col md:flex-row items-center justify-between">
         <div className="mb-6 md:mb-0 md:mr-6">
           <h2 className="text-3xl font-bold mb-2">
-            Welcome to <span className="text-blue-500">{roomName}</span>!
+            Chào mừng đến với <span className="text-blue-500">{roomName}</span>!
           </h2>
           <p className="text-gray-600 mb-2">
-            The{" "}
+            {/* The{" "} */}
             <Link href="#" className="text-blue-500 hover:underline">
               Test Room
             </Link>{" "}
-            shows what you know and what you're ready to learn next.
+            giúp bạn biết mình đã biết gì và sẵn sàng học gì tiếp theo.
           </p>
           <p className="text-gray-600 mb-4">
-            Visit the Analysis often to see how your stats change and to get new
-            recommendations after finishing the tests!
+            Hãy thường xuyên truy cập Phân tích để xem sự thay đổi thống kê của
+            bạn và nhận các gợi ý mới sau khi hoàn thành bài kiểm tra!
           </p>
 
           <div className="bg-white rounded-lg p-4 shadow-sm inline-block">
@@ -42,8 +42,8 @@ export default function WelcomeSection() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="text-sm font-medium">Level:</span>
-              <span className="text-sm ml-1">Novice</span>
+              <span className="text-sm font-medium">Cấp độ:</span>
+              <span className="text-sm ml-1">Người mới bắt đầu</span>
             </div>
             <div className="flex items-center">
               <svg
@@ -60,8 +60,8 @@ export default function WelcomeSection() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="text-sm font-medium">Progress:</span>
-              <span className="text-sm ml-1">20% completed</span>
+              <span className="text-sm font-medium">Tiến độ:</span>
+              <span className="text-sm ml-1">Đã hoàn thành 20%</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function WelcomeSection() {
         <div className="relative w-full md:w-1/3 h-48 md:h-64">
           <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Math_Elearning-lXtT46HwN4yrEEUJLnF8HZTWUh6sxB.png"
-            alt="E-learning illustration"
+            alt="Minh họa E-learning"
             fill
             className="object-contain"
           />

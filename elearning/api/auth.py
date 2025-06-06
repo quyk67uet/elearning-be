@@ -1,16 +1,19 @@
 import frappe
 from frappe import _
-from frappe.utils import validate_email_address, random_string, get_url, now, add_to_date, now_datetime, get_datetime, cint, has_gravatar, add_days # Đã xóa encode_uri_component
+from frappe.utils import validate_email_address, random_string, get_url, now, add_to_date, now_datetime, get_datetime, cint, has_gravatar, add_days
 from frappe.utils.password import update_password as frappe_update_password
 from frappe.core.doctype.user.user import test_password_strength, generate_keys
 import uuid
 import base64
-import urllib.parse # THÊM IMPORT NÀY
+import urllib.parse
 import random
 import string
 import json
 import hashlib
 import hmac
+import jwt
+import datetime
+from elearning.api.jwt_auth import get_jwt_settings
 
 
 # --- User Signup and Email Verification ---
@@ -21,112 +24,117 @@ def custom_user_signup(first_name, last_name, email, password, age_level=None, r
     Sign up a new user, create a verification token, and send a verification email.
     User is created as disabled until email is verified.
     """
-    # Ensure Student Role exists
-    if not frappe.db.exists("Role", "Student"):
-        frappe.get_doc({
-            "doctype": "Role",
-            "role_name": "Student",
-            "desk_access": 0
-        }).insert(ignore_permissions=True)
-    
-    # Validate email
-    if not validate_email_address(email):
-        frappe.throw(_("Invalid email address"))
-    
-    # Check if user already exists
-    if frappe.db.exists("User", email):
-        frappe.throw(_("Email already registered"))
-    
-    # Check password strength
-    # user_data for test_password_strength should be a tuple in the order:
-    # (name, first_name, last_name, email, birth_date)
-    user_data_tuple_for_strength_test = (
-        f"{first_name} {last_name}", # name (full name)
-        first_name,
-        last_name,
-        email,
-        None  # birth_date (set to None if not available)
-    )
-    test_password_strength(password, user_data=user_data_tuple_for_strength_test) # Truyền tuple vào đây
+    try:
+        # Ensure Student Role exists
+        if not frappe.db.exists("Role", "Student"):
+            frappe.get_doc({
+                "doctype": "Role",
+                "role_name": "Student",
+                "desk_access": 0
+            }).insert(ignore_permissions=True)
+        
+        # Validate email
+        if not validate_email_address(email):
+            frappe.throw(_("Invalid email address"))
+        
+        # Check if user already exists
+        if frappe.db.exists("User", email):
+            frappe.throw(_("Email already registered"))
+        
+        # Check password strength
+        # user_data for test_password_strength should be a tuple in the order:
+        # (name, first_name, last_name, email, birth_date)
+        user_data_tuple_for_strength_test = (
+            f"{first_name} {last_name}", # name (full name)
+            first_name,
+            last_name,
+            email,
+            None  # birth_date (set to None if not available)
+        )
+        test_password_strength(password, user_data=user_data_tuple_for_strength_test)
 
-    # Create user - Initially disabled
-    user = frappe.get_doc({
-        "doctype": "User",
-        "email": email,
-        "first_name": first_name,
-        "last_name": last_name,
-        "send_welcome_email": 0, # We are sending a verification email
-        "enabled": 0,  # Start with disabled user until email is verified
-        "new_password": password, # Frappe will hash this on insert
-        "roles": [{"role": "Student"}]
-    })
-    
-    if age_level:
-        # Assuming 'age_level' is a custom field in User DocType.
-        # Ensure this field exists in your User DocType customization.
-        user.age_level = age_level
-    
-    user.insert(ignore_permissions=True)
-    
-    # Create a student profile (if Student DocType exists)
-    create_student_profile(user.name, first_name, last_name, email, age_level)
+        # Create user - Initially disabled
+        user = frappe.get_doc({
+            "doctype": "User",
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "send_welcome_email": 0, # We are sending a verification email
+            "enabled": 0,  # Start with disabled user until email is verified
+            "new_password": password, # Frappe will hash this on insert
+            "roles": [{"role": "Student"}]
+        })
+        
+        if age_level:
+            # Assuming 'age_level' is a custom field in User DocType.
+            # Ensure this field exists in your User DocType customization.
+            user.age_level = age_level
+        
+        user.insert(ignore_permissions=True)
+        
+        # Create a student profile (if Student DocType exists)
+        create_student_profile(user.name, first_name, last_name, email, age_level)
 
-    # Generate verification token
-    verification_token = generate_verification_token(email)
+        # Generate verification token
+        verification_token = generate_verification_token(email)
 
-    # Store token in Email Verification Token doctype
-    token_doc_name = create_email_verification_token(email, verification_token, redirect_to)
-    if not token_doc_name:
-        frappe.db.rollback() # Rollback user creation if token cannot be made
-        frappe.throw(_("Failed to create verification token. Please try again."))
+        # Store token in Email Verification Token doctype
+        token_doc_name = create_email_verification_token(email, verification_token, redirect_to)
+        if not token_doc_name:
+            frappe.db.rollback() # Rollback user creation if token cannot be made
+            frappe.throw(_("Failed to create verification token. Please try again."))
 
-    # Send verification email
-    api_verify_url = f"{frappe.utils.get_request_site_address(True)}/api/method/elearning.api.auth.verify_email_token_and_redirect?token={verification_token}"
+        # Lấy URL backend từ site_config hoặc dùng URL hiện tại
+        backend_url = frappe.conf.get("backend_url") or frappe.utils.get_request_site_address(True)
+        api_verify_url = f"{backend_url}/api/method/elearning.api.auth.verify_email_token_and_redirect?token={verification_token}"
 
-    email_subject = _("Verify Your Email Address for Elearning Platform")
-    email_message = _("""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Verification</title>
-    </head>
-    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h2 style="color: #4a6cf7;">Elearning Platform</h2>
-        </div>
-        <div style="background-color: #f9f9f9; border-radius: 10px; padding: 25px; margin-bottom: 20px; border: 1px solid #eee;">
-            <h3 style="margin-top: 0; color: #333;">Hi {0},</h3>
-            <p>Thank you for registering with our Elearning Platform. To activate your account, please verify your email address by clicking the button below:</p>
-            
-            <div style="text-align: center; margin: 30px 0;">
-                <a href="{1}" style="background-color: #4a6cf7; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Verify Email Address</a>
+        email_subject = _("Verify Your Email Address for Elearning Platform")
+        email_message = _("""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Email Verification</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="color: #4a6cf7;">Elearning Platform</h2>
             </div>
-            
-            <p>This verification link will expire in 24 hours.</p>
-            <p>If you're having trouble clicking the button, copy and paste the URL below into your web browser:</p>
-            <p style="word-break: break-all; font-size: 12px; color: #666; margin-top: 10px;">{1}</p>
-        </div>
-        <div style="font-size: 12px; color: #666; text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-            <p>If you did not request this email, please ignore it or contact our support team if you have concerns.</p>
-        </div>
-    </body>
-    </html>
-    """).format(first_name, api_verify_url)
+            <div style="background-color: #f9f9f9; border-radius: 10px; padding: 25px; margin-bottom: 20px; border: 1px solid #eee;">
+                <h3 style="margin-top: 0; color: #333;">Hi {0},</h3>
+                <p>Thank you for registering with our Elearning Platform. To activate your account, please verify your email address by clicking the button below:</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="{1}" style="background-color: #4a6cf7; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Verify Email Address</a>
+                </div>
+                
+                <p>This verification link will expire in 24 hours.</p>
+                <p>If you're having trouble clicking the button, copy and paste the URL below into your web browser:</p>
+                <p style="word-break: break-all; font-size: 12px; color: #666; margin-top: 10px;">{1}</p>
+            </div>
+            <div style="font-size: 12px; color: #666; text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p>If you did not request this email, please ignore it or contact our support team if you have concerns.</p>
+            </div>
+        </body>
+        </html>
+        """).format(first_name, api_verify_url)
 
-    frappe.sendmail(
-        recipients=email,
-        subject=email_subject,
-        message=email_message,
-        now=True # Send immediately
-    )
-    
-    return {
-        "success": True,
-        "message": _("Registration successful. Please check your email for verification."),
-        "email": email
-    }
+        frappe.sendmail(
+            recipients=email,
+            subject=email_subject,
+            message=email_message,
+            now=True # Send immediately
+        )
+        
+        return {
+            "success": True,
+            "message": _("Registration successful. Please check your email for verification."),
+            "email": email
+        }
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "User Signup Error")
+        frappe.throw(_("Error during signup: {0}").format(str(e)))
 
 def generate_verification_token(email):
     """Generate a unique verification token for email verification."""
@@ -245,7 +253,6 @@ def verify_email_token_and_redirect(token):
         frappe.local.response["type"] = "redirect"
         frappe.local.response["location"] = final_redirect
         return
-
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), "Verify Email Token and Redirect Error")
         frappe.local.response["type"] = "redirect"
@@ -303,7 +310,9 @@ def resend_verification_email_api(email): # Renamed to avoid conflict if you hav
     if not token_doc_name:
         frappe.throw(_("Failed to prepare new verification token. Please contact support."))
 
-    api_verify_url = f"{frappe.utils.get_request_site_address(True)}/api/method/elearning.api.auth.verify_email_token_and_redirect?token={new_verification_token}"
+    # Lấy URL backend từ site_config hoặc dùng URL hiện tại
+    backend_url = frappe.conf.get("backend_url") or frappe.utils.get_request_site_address(True)
+    api_verify_url = f"{backend_url}/api/method/elearning.api.auth.verify_email_token_and_redirect?token={new_verification_token}"
     
     email_subject = _("Verify Your Email Address for Elearning Platform (Resend)")
     email_message = _("""
@@ -480,20 +489,48 @@ def social_login_handler(provider, user_id, email, full_name, picture=None, acce
         # This is crucial for subsequent API calls from the client if not using a separate token
         frappe.local.login_manager.make_session(resume=True)
 
+        # Get user roles for JWT payload
+        user_roles = [role.role for role in user_doc.roles]
+
+        # Lấy JWT settings từ hàm được import
+        jwt_settings = get_jwt_settings()
+
+        # Tính thời gian hết hạn
+        expiry = datetime.datetime.utcnow() + datetime.timedelta(seconds=jwt_settings["access_token_expires"])
+        
+        # Tạo JWT payload
+        payload = {
+            "user_id": user_doc.name,
+            "email": user_doc.email,
+            "full_name": user_doc.full_name,
+            "roles": user_roles,
+            "exp": expiry,
+            "iat": datetime.datetime.utcnow(),
+        }
+        
+        # Ký JWT
+        access_token = jwt.encode(
+            payload,
+            jwt_settings["secret"],
+            algorithm=jwt_settings["algorithm"]
+        )
 
         # For NextAuth, you might not need to return a Frappe API key/secret.
         # NextAuth will manage its own session based on this successful Frappe login.
         # The 'sid' cookie set by make_session() is what Frappe backend will use.
         return {
             "success": True,
-            "message": "Logged in successfully via " + provider,
-            "user_info": { # This is what NextAuth's authorize function might return
-                "id": user_doc.name, # Frappe user ID (email)
-                "name": user_doc.full_name,
-                "email": user_doc.email,
-                "image": user_doc.user_image
-            },
-            "is_new_user": is_new_user
+            "message": {
+                "access_token": access_token,
+                "user_info": {
+                    "id": user_doc.name,
+                    "name": user_doc.full_name,
+                    "email": user_doc.email,
+                    "image": user_doc.user_image,
+                    "roles": user_roles
+                },
+                "is_new_user": is_new_user
+            }
         }
         
     except Exception as e:
@@ -503,7 +540,6 @@ def social_login_handler(provider, user_id, email, full_name, picture=None, acce
 
 
 # --- Password Update (Directly, use with caution) ---
-@frappe.whitelist(allow_guest=True)
 @frappe.whitelist(allow_guest=True)
 def update_user_password_api(user_email=None, new_password=None, user=None, reset_token=None):
     """
@@ -550,11 +586,11 @@ def update_user_password_api(user_email=None, new_password=None, user=None, rese
             frappe.throw(_("You do not have permission to update this user's password."), frappe.PermissionError)
         
         # Check if user exists
-    if not frappe.db.exists("User", user_email):
-        frappe.throw(_("User not found"))
-    
+        if not frappe.db.exists("User", user_email):
+            frappe.throw(_("User not found"))
+        
         # Password strength check
-    user_doc = frappe.get_doc("User", user_email)
+        user_doc = frappe.get_doc("User", user_email)
         user_data = (
             user_doc.full_name or f"{user_doc.first_name} {user_doc.last_name}",
             user_doc.first_name,
@@ -613,21 +649,6 @@ def update_user_password(user_email=None, new_password=None, user=None, reset_to
         
     # Call the actual implementation
     return update_user_password_api(user_email, new_password, user=None, reset_token=reset_token)
-
-# --- Helper: Mark Email Verified (Potentially for admin or specific flows) ---
-# This function might be redundant if verify_email_token_and_redirect handles enabling user.
-# @frappe.whitelist(allow_guest=True) # SECURITY: Should not be allow_guest unless for specific internal use
-# def mark_email_verified_api(email): # Renamed
-#     if not frappe.db.exists("User", email):
-#         frappe.throw(_("User not found"))
-#     user = frappe.get_doc("User", email)
-#     if not user.enabled:
-#         user.enabled = 1
-#     if hasattr(user, 'email_verified'):
-#         user.email_verified = 1
-#     user.save(ignore_permissions=True)
-#     frappe.db.commit()
-#     return {"success": True, "message": _("Email marked as verified.")}
 
 # --- Test Reset Password (Simple existence check) ---
 # This is okay as a simple check.
