@@ -57,7 +57,12 @@ export function useTestSubmission({
         `test_attempt.test_attempt.submit_test_attempt`,
         {
           method: "POST",
-          body: submissionPayload,
+          // 1. Thêm header để chỉ định đây là request JSON
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // 2. Chuyển đổi toàn bộ payload thành một chuỗi JSON
+          body: JSON.stringify(submissionPayload),
         }
       );
       const resultData = result?.message || result;
