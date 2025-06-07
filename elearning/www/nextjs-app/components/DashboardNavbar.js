@@ -49,7 +49,7 @@ const DashboardNavbar = ({
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-40 w-full">
+    <nav className="bg-white shadow-sm sticky top-0 z-30 w-full">
       <div className="flex items-center h-16 w-full">
         {/* Toggle Button - Always visible and positioned correctly */}
         <div
@@ -136,7 +136,7 @@ const DashboardNavbar = ({
 
             {/* Notifications dropdown - Responsive positioning with proper z-index */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-md shadow-lg overflow-hidden z-50">
+              <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-md shadow-lg overflow-hidden z-40">
                 <div className="py-2 px-3 bg-indigo-50 border-b border-gray-200">
                   <h3 className="text-sm font-medium text-gray-700">
                     Flashcards cần ôn tập
