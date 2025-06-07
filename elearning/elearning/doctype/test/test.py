@@ -62,11 +62,13 @@ def find_all_active_tests(topic_id=None, grade_level=None, test_type=None):
 
 
 @frappe.whitelist()
-def get_test_details(test_id):
+def get_test_details(test_id=None):
     """
     Retrieves details for a single test, including question count.
     """
     user = get_current_user()
+    if not test_id:
+        frappe.throw(_("Thiếu test_id"))
     try:
         test_doc = frappe.get_doc("Test", test_id)
         # Add permission check if needed: frappe.has_permission("Test", "read", doc=test_doc)
