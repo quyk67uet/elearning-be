@@ -15,14 +15,14 @@ const DashboardNavbar = ({
   const { data: session } = useSession();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  
+
   // Use the custom hook for SRS notifications
-  const { 
-    notifications, 
+  const {
+    notifications,
     notificationCount,
     upcomingCount,
     totalCount,
-    loading: notificationsLoading 
+    loading: notificationsLoading,
   } = useSRSNotifications();
 
   const handleLogout = async () => {
@@ -49,12 +49,14 @@ const DashboardNavbar = ({
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-40 w-full">
+    <nav className="bg-white shadow-sm sticky top-0 z-30 w-full">
       <div className="flex items-center h-16 w-full">
         {/* Toggle Button - Always visible and positioned correctly */}
-        <div className={`flex-shrink-0 transition-all duration-300 ${
-          isSidebarOpen ? 'ml-64 md:ml-52' : 'ml-20'
-        }`}>
+        <div
+          className={`flex-shrink-0 transition-all duration-300 ${
+            isSidebarOpen ? "ml-64 md:ml-52" : "ml-20"
+          }`}
+        >
           <button
             onClick={() => {
               toggleSidebar();
@@ -117,26 +119,28 @@ const DashboardNavbar = ({
               />
             </svg>
           </button>
-          
+
           {/* Notifications */}
           <div className="relative">
-            <button 
+            <button
               className="text-gray-500 hover:text-gray-700 relative p-1"
               onClick={() => setShowNotifications(!showNotifications)}
             >
               <BellRing className="h-5 w-5 sm:h-6 sm:w-6" />
               {totalCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {totalCount > 99 ? '99+' : totalCount}
+                  {totalCount > 99 ? "99+" : totalCount}
                 </span>
               )}
             </button>
-            
+
             {/* Notifications dropdown - Responsive positioning with proper z-index */}
             {showNotifications && (
               <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-md shadow-lg overflow-hidden z-50">
                 <div className="py-2 px-3 bg-indigo-50 border-b border-gray-200">
-                  <h3 className="text-sm font-medium text-gray-700">Flashcards cần ôn tập</h3>
+                  <h3 className="text-sm font-medium text-gray-700">
+                    Flashcards cần ôn tập
+                  </h3>
                   {totalCount > 0 && (
                     <div className="flex space-x-2 mt-1 text-xs text-gray-500">
                       {notificationCount > 0 && (
@@ -162,13 +166,15 @@ const DashboardNavbar = ({
                   ) : notifications.length > 0 ? (
                     <div>
                       {notifications.map((topic) => (
-                        <div 
+                        <div
                           key={topic.topic_id}
                           className="py-2 px-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer"
                           onClick={() => navigateToSRS(topic.topic_id)}
                         >
                           <div className="flex justify-between items-center">
-                            <p className="text-sm font-medium text-gray-800 truncate mr-2">{topic.topic_name}</p>
+                            <p className="text-sm font-medium text-gray-800 truncate mr-2">
+                              {topic.topic_name}
+                            </p>
                             <div className="flex items-center space-x-1 flex-shrink-0">
                               {topic.due_count > 0 && (
                                 <span className="flex items-center text-xs px-2 py-0.5 bg-red-100 text-red-800 rounded-full">
@@ -184,21 +190,26 @@ const DashboardNavbar = ({
                           </div>
                           <p className="text-xs text-gray-500 mt-1">
                             {topic.due_count > 0 && (
-                              <span className="font-semibold text-red-600">{topic.due_count} thẻ cần ôn tập ngay</span>
+                              <span className="font-semibold text-red-600">
+                                {topic.due_count} thẻ cần ôn tập ngay
+                              </span>
                             )}
-                            {topic.due_count > 0 && topic.upcoming_count > 0 && (
-                              <span className="mx-1">•</span>
-                            )}
+                            {topic.due_count > 0 &&
+                              topic.upcoming_count > 0 && (
+                                <span className="mx-1">•</span>
+                              )}
                             {topic.upcoming_count > 0 && (
-                              <span>{topic.upcoming_count} thẻ sắp đến hạn</span>
+                              <span>
+                                {topic.upcoming_count} thẻ sắp đến hạn
+                              </span>
                             )}
                           </p>
                         </div>
                       ))}
                       <div className="py-2 px-4 bg-gray-50 text-center">
-                        <button 
+                        <button
                           className="text-sm text-indigo-600 hover:text-indigo-800"
-                          onClick={() => router.push('/learn')}
+                          onClick={() => router.push("/learn")}
                         >
                           Xem tất cả chủ đề
                         </button>

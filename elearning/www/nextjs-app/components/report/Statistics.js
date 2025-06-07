@@ -8,7 +8,7 @@ const CircularProgress = ({ percentage, color }) => {
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="relative w-52 h-52">
+    <div className="relative w-44 h-44">
       {/* Background Circle */}
       <svg className="w-full h-full" viewBox="0 0 190 190">
         <circle
@@ -433,9 +433,7 @@ const Statistics = () => {
 
       {/* Question Pace - keeping at bottom */}
       <div className="mt-auto bg-gray-50 p-4 rounded-lg">
-        <p className="text-xs text-gray-500 mb-2">
-          Phân bổ hoạt động học tập
-        </p>
+        <p className="text-xs text-gray-500 mb-2">Phân bổ hoạt động học tập</p>
 
         <div className="h-3 bg-white rounded-full overflow-hidden flex">
           <div
