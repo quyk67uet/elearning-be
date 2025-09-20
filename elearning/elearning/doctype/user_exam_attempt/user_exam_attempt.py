@@ -12,8 +12,8 @@ import requests
 import time
 import re
 import random
-#import google.generativeai as genai
-#from google.generativeai.types import HarmCategory, HarmBlockThreshold
+import google.generativeai as genai
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
 class UserExamAttempt(Document):
 	def __init__(self, *args, **kwargs):
@@ -541,21 +541,21 @@ def submit_self_assessment_and_init_srs():
 			# Get total number of questions in the attempt
 			total_questions = frappe.db.count("User Exam Attempt Detail", {"parent": attempt.name})
 			
-			# Count questions with self-assessment
-			assessed_questions = frappe.db.count(
+			# Count questions that have BOTH user_answer AND self-assessment (fully completed)
+			fully_completed_questions = frappe.db.count(
 				"User Exam Attempt Detail", 
 				{
 					"parent": attempt.name, 
-					"user_self_assessment": ["!=", ""],
-					"user_self_assessment": ["is", "not null"]
+					"user_answer": ["!=", ""],
+					"user_self_assessment": ["!=", ""]
 				}
 			)
 			
-			frappe.logger().debug(f"submit_self_assessment_and_init_srs: {assessed_questions}/{total_questions} questions have self-assessment for attempt {attempt.name}")
+			frappe.logger().debug(f"submit_self_assessment_and_init_srs: {fully_completed_questions}/{total_questions} questions are fully completed for attempt {attempt.name}")
 			
-			# If all questions have self-assessment, auto-complete the attempt
-			if assessed_questions >= total_questions:
-				frappe.logger().info(f"submit_self_assessment_and_init_srs: Auto-completing attempt {attempt.name} (all questions assessed)")
+			# If all questions are fully completed (have both answer and self-assessment), auto-complete the attempt
+			if fully_completed_questions >= total_questions:
+				frappe.logger().info(f"submit_self_assessment_and_init_srs: Auto-completing attempt {attempt.name} (all questions fully completed)")
 				
 				# Calculate time spent
 				now_dt = get_datetime(now())
