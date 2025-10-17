@@ -6,12 +6,12 @@ import AttachmentPreview from './AttachmentPreview';
 import SuggestedActions from './SuggestedActions';
 import QuickActions from './QuickActions';
 import { useChat } from '../../hooks/useChat';
-import { useChatContext } from '../../contexts/ChatContext';
-import FeedbackButtons from './FeedbackButtons';
+// import { useChatContext } from '../../contexts/ChatContext';
+// import FeedbackButtons from './FeedbackButtons';
 import { fetchWithAuth } from '../../pages/api/helper';
 
 const ChatPanel = ({ onExpand, onClose, initialPrompt }) => {
-  const { currentLoId } = useChatContext();
+  // const { currentLoId } = useChatContext();
   // Nhận initialPrompt từ props
   // --- HARDCODED CONVERSATION FLOW FOR DEMO ---
   // Comment out original chat logic
@@ -62,15 +62,15 @@ const ChatPanel = ({ onExpand, onClose, initialPrompt }) => {
     } else if (step === 1 && (input.includes('Tổng') || input.includes('tích'))) {
       sendISYMessage(
         [
-          'Tích là 4 đúng rồi! 👍 Bạn đã xác định rất chính xác hệ số *c* và *a*.',
+          'Tích là 4 đúng rồi! 👍 Bạn đã xác định rất chính xác hệ số **c** và **a**.',
           '',
-          'Tuy nhiên, có một chút nhầm lẫn nhỏ ở phần *tổng hai nghiệm*. Mình đoán là bạn có thể đã quên mất dấu trừ trong công thức *S = -b/a*. Đây là một lỗi rất hay gặp, đừng lo lắng nhé!',
+          'Tuy nhiên, có một chút nhầm lẫn nhỏ ở phần **tổng hai nghiệm**. Mình đoán là bạn có thể đã quên mất dấu trừ trong công thức **S = -b/a**. Đây là một lỗi rất hay gặp, đừng lo lắng nhé!',
           '',
-          '*Hãy cùng xem lại:*',
-          '- Phương trình của chúng ta là: x² - 5x + 4 = 0',
-          '- Ở đây, *a = 1* và *b = -5*',
+          '**Hãy cùng xem lại:**',
+          '- Phương trình của chúng ta là: `x² - 5x + 4 = 0`',
+          '- Ở đây, **a = 1** và **b = -5**',
           '- Vậy tổng hai nghiệm phải là:',
-          '  S = -(-5) / 1 = 5',
+          '  `S = -(-5) / 1 = 5`',
           '',
           'Để giúp bạn nhớ kỹ hơn về dấu trừ quan trọng này, chúng mình cùng làm thêm vài bài tập tương tự nha.'
         ].join('\n'),
@@ -81,13 +81,13 @@ const ChatPanel = ({ onExpand, onClose, initialPrompt }) => {
       setTimeout(() => {
         sendISYMessage(
         [
-          '*ISY: 🎯 THỬ THÁCH CÙNG ISY*',
+          '**ISY: 🎯 THỬ THÁCH CÙNG ISY**',
           '',
           'Hãy luyện tập lại nhé!',
           '',
-          '*Bài 1*: x² + 7x + 10 = 0',
+          '**Bài 1**: x² + 7x + 10 = 0',
           '',
-          '*Bài 2*: 2x² - 6x + 1 = 0'
+          '**Bài 2**: 2x² - 6x + 1 = 0'
         ].join('\n'),
           3,
           1500
@@ -105,27 +105,27 @@ const ChatPanel = ({ onExpand, onClose, initialPrompt }) => {
   }, [initialPrompt, setInput]);
 
   // Debug: log current LO and messages
-  React.useEffect(() => {
-    console.log('[DEBUG] currentLoId:', currentLoId);
-    console.log('[DEBUG] messages:', messages);
-  }, [currentLoId, messages]);
+  // React.useEffect(() => {
+  //   console.log('[DEBUG] currentLoId:', currentLoId);
+  //   console.log('[DEBUG] messages:', messages);
+  // }, [currentLoId, messages]);
 
   // Feedback logic
-  const [feedbackGiven, setFeedbackGiven] = useState(false);
-  const handleFeedback = async (outcome) => {
-    console.log('[DEBUG] Feedback button clicked:', outcome, 'for LO:', currentLoId);
-    if (!currentLoId) return;
-    try {
-      await fetchWithAuth('student_lo_mastery.student_lo_mastery.record_interaction_outcome', {
-        method: 'POST',
-        body: { lo_id: currentLoId, outcome },
-      });
-      setFeedbackGiven(true);
-      console.log('[DEBUG] Feedback API called successfully');
-    } catch (err) {
-      console.error('[DEBUG] Feedback API error:', err);
-    }
-  };
+  // const [feedbackGiven, setFeedbackGiven] = useState(false);
+  // const handleFeedback = async (outcome) => {
+  //   console.log('[DEBUG] Feedback button clicked:', outcome, 'for LO:', currentLoId);
+  //   if (!currentLoId) return;
+  //   try {
+  //     await fetchWithAuth('student_lo_mastery.student_lo_mastery.record_interaction_outcome', {
+  //       method: 'POST',
+  //       body: { lo_id: currentLoId, outcome },
+  //     });
+  //     setFeedbackGiven(true);
+  //     console.log('[DEBUG] Feedback API called successfully');
+  //   } catch (err) {
+  //     console.error('[DEBUG] Feedback API error:', err);
+  //   }
+  // };
 
   const [attachments, setAttachments] = useState([]);
   const [uploadQueue, setUploadQueue] = useState([]);
@@ -174,7 +174,7 @@ const ChatPanel = ({ onExpand, onClose, initialPrompt }) => {
 
   const handleAudioUpload = (audioBlob) => {
     const audioAttachment = {
-      name: audio_${Date.now()}.wav,
+      name: `audio_${Date.now()}.wav`,
       url: URL.createObjectURL(audioBlob),
       contentType: 'audio/wav',
       type: 'audio',
